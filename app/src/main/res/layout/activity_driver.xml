@@ -8,11 +8,27 @@
     tools:context=".DriverActivity">
 
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/frame_driver"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/botnav3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/botnav3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="driver"
-        tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="95dp" />
+        android:layout_alignParentBottom="true"
+        android:background="#4E6A6A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
