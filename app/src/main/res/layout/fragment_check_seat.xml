@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    tools:context=".CheckSeatFragment">
+
+    <!-- Add ScrollView here -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <!-- Main Container for Fragment Content -->
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+
+            <!-- Back Button Image -->
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="51dp"
+                android:layout_height="59dp"
+                android:layout_margin="20dp"
+                android:src="@drawable/ic_backl"
+                tools:ignore="ContentDescription" />
+
+            <!-- Title TextView -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:text="@string/check_seat"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <!-- Divider View -->
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="120dp"
+                android:background="@color/black" />
+
+            <!-- Jeep Details Header -->
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="140dp"
+                android:text="@string/jeep_details"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Jeep Image Centered -->
+            <ImageView
+                android:id="@+id/imageView27"
+                android:layout_width="184dp"
+                android:layout_height="210dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="90dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_jeep"
+                tools:ignore="ContentDescription" />
+
+            <!-- Jeep Details Form -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="400dp"
+                android:layout_marginEnd="15dp"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:text="@string/jeep_no"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="@string/enter_jeep_no"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#6F6E6E"
+                    tools:ignore="Autofill,TextFields" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:text="@string/capacity"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="@string/enter_capacity"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#6F6E6E"
+                    tools:ignore="Autofill,TextFields" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:text="@string/availability"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/editbox_background"
+                    android:hint="@string/enter_availability"
+                    android:textColor="@color/black"
+                    android:textColorHint="#6F6E6E"
+                    android:padding="8dp"
+                    tools:ignore="Autofill,TextFields" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </ScrollView>
+</FrameLayout>

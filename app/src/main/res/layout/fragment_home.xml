@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".HomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- FrameLayout to overlap ImageView on top of View -->
+            <FrameLayout
+                android:id="@+id/frame_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@drawable/background2" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="start|top"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/logo"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="97dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="28dp"
+                    android:gravity="center"
+                    android:text="@string/welcome"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="@+id/textView"/>
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="163dp"
+                    android:layout_marginTop="29dp"
+                    android:text="@string/username"
+                    android:textColor="#A5BE7D"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                    app:layout_constraintStart_toEndOf="@+id/textView9"
+                    app:layout_constraintTop_toTopOf="@+id/textView9"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="37dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="320dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.851"
+                    app:layout_constraintStart_toEndOf="@+id/textView8"
+                    app:layout_constraintTop_toTopOf="@+id/textView"
+                    app:srcCompat="@drawable/notification"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="90dp"
+                    android:text="@string/_0_00"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
+                    app:layout_constraintVertical_bias="0.034" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="120dp"
+                    android:text="@string/wallet_balance"
+                    android:textColor="#A5BE7D"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="177dp"
+                    android:layout_height="210dp"
+                    android:layout_marginStart="180dp"
+                    android:layout_marginTop="28dp"
+                    app:srcCompat="@drawable/img"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/services"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="240dp"
+                    android:layout_marginStart="20dp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/discount_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="80dp"
+                    app:cardElevation="4dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardBackgroundColor="#CCD9B8"
+                    app:contentPadding="0dp"
+                    android:layout_marginTop="320dp"
+                    android:layout_marginLeft="25dp"
+                    tools:ignore="RtlHardcoded">
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="0dp"
+                        android:src="@drawable/discount"
+                        tools:ignore="ContentDescription" />
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/discount"
+                    android:fontFamily="@font/rubik"
+                    android:layout_marginTop="420dp"
+                    android:layout_marginStart="37dp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/seat_card"
+                    android:layout_width="94dp"
+                    android:layout_height="90dp"
+                    app:cardBackgroundColor="#CCD9B8"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    app:contentPadding="0dp"
+                    android:layout_marginStart="135dp"
+                    android:layout_marginTop="320dp">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/armchair"
+                        tools:ignore="ContentDescription" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="420dp"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:layout_marginStart="140dp"
+                    android:text="@string/check_seat"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/rubik"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/qr_card"
+                    android:layout_width="94dp"
+                    android:layout_height="90dp"
+                    app:cardBackgroundColor="#CCD9B8"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    app:contentPadding="0dp"
+                    android:layout_marginTop="320dp"
+                    android:layout_marginStart="248dp">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="0dp"
+                        android:src="@drawable/qr_code_2"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/qr_code_share"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/rubik"
+                    android:textSize="17sp"
+                    android:layout_marginTop="420dp"
+                    android:layout_marginStart="240dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/transactions"
+                    android:layout_marginTop="470dp"
+                    android:layout_marginStart="20dp"/>
+
+                <TextView
+                    android:id="@+id/borderedTextView"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="530dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/borderedTextView2"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="590dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/borderedTextView3"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="650dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/borderedTextView4"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="710dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="107dp"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="250dp"
+                    android:layout_marginTop="100dp"
+                    android:background="@drawable/round_btn4"
+                    android:drawableStart="@drawable/ic_cash_down"
+                    android:paddingStart="10dp"
+                    android:text="@string/cash_in"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
+
+            </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
+</FrameLayout>

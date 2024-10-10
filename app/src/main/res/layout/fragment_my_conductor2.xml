@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MyConductor2Fragment">
+
+    <FrameLayout
+        android:id="@+id/frame_conductor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F4F4F4"
+        tools:ignore="UselessParent">
+
+
+        <!-- Back Button Image -->
+        <ImageView
+            android:id="@+id/imageView24"
+            android:layout_width="50dp"
+            android:layout_height="47dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_backl"
+            tools:ignore="ContentDescription" />
+
+        <!-- Title TextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/my_conductor"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+    </FrameLayout>
+    <!--Create Account -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/creat_an_account"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="102dp"
+        android:layout_marginStart="15dp"/>
+    <!-- Form Fields for Account Creation -->
+    <LinearLayout
+        android:layout_width="412dp"
+        android:layout_height="516dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- First Name Field -->
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="293dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/first_name"
+            android:inputType="textPersonName"
+            android:paddingStart="30dp"
+            android:textColor="@color/black"
+            android:textColorHint="#737272"
+            android:layout_marginStart="50dp"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <!-- Middle Name (Optional) Field -->
+        <EditText
+            android:id="@+id/middleName"
+            android:layout_width="293dp"
+            android:layout_marginStart="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/middle_name_optional"
+            android:inputType="textPersonName"
+            android:paddingStart="30dp"
+            android:textColorHint="#737272"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <!-- Last Name Field -->
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="293dp"
+            android:layout_marginStart="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/last_name"
+            android:inputType="textPersonName"
+            android:paddingStart="30dp"
+            android:textColorHint="#737272"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <!-- Email Field -->
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="293dp"
+            android:layout_marginStart="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="30dp"
+            android:textColorHint="#737272"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <!-- Phone Number Field -->
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="293dp"
+            android:layout_marginStart="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:paddingStart="30dp"
+            android:textColorHint="#737272"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <!-- Password Field -->
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="293dp"
+            android:layout_marginStart="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingStart="30dp"
+            android:textColorHint="#737272"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <!-- Create Account Button -->
+        <Button
+            android:id="@+id/createAccountButton"
+            android:layout_width="271dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/round_btn7"
+            android:gravity="center"
+            android:text="@string/create_account"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</FrameLayout>

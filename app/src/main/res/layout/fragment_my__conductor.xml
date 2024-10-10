@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".My_ConductorFragment">
+
+    <FrameLayout
+        android:id="@+id/frame_conductor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F4F4F4"
+        tools:ignore="UselessParent">
+
+        <!-- Back Button Image -->
+        <ImageView
+            android:id="@+id/imageView24"
+            android:layout_width="50dp"
+            android:layout_height="47dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_backl"
+            tools:ignore="ContentDescription" />
+
+        <!-- Title TextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/my_conductor"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/list_of_accounts"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="15dp"/>
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/round_btn6"
+        android:drawableStart="@drawable/ic_addition"
+        android:paddingStart="7dp"
+        android:text="@string/add"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        tools:ignore="RtlSymmetry" />
+
+    <ImageView
+        android:id="@+id/imageView30"
+        android:layout_width="35dp"
+        android:layout_height="38dp"
+        android:src="@drawable/ic_filter"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="300dp"
+        tools:ignore="ContentDescription" />
+
+    <!-- Conductor Information -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="175dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:clickable="true"
+        android:background="#A5BE7D"
+        android:paddingVertical="8dp">
+
+        <!-- Status Dot -->
+        <View
+            android:id="@+id/statusDot"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/circle_dot_green"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="60dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="Mark Cruz"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/ic_3dots"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+    <!-- Conductor Information -->
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="240dp"
+        android:background="#A5BE7D"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="8dp">
+
+        <!-- Status Dot -->
+        <View
+            android:id="@+id/statusDot2"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_dot_orange" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="60dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="Mark Cruz"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/ic_3dots"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</FrameLayout>

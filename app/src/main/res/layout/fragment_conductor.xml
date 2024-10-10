@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".ConductorFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- FrameLayout to overlap ImageView on top of View -->
+            <FrameLayout
+                android:id="@+id/frame_conductor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@drawable/background2" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="start|top"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/logo"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="97dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="28dp"
+                    android:gravity="center"
+                    android:text="@string/welcome"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="163dp"
+                    android:layout_marginTop="29dp"
+                    android:text="@string/username"
+                    android:textColor="#A5BE7D"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="37dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="320dp"
+                    android:layout_marginTop="16dp"
+                    app:srcCompat="@drawable/notification"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="90dp"
+                    android:text="@string/_0_00"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="120dp"
+                    android:text="@string/wallet_balance"
+                    android:textColor="#A5BE7D" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginStart="180dp"
+                    android:layout_marginTop="28dp"
+                    app:srcCompat="@drawable/img"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="200dp"
+                    android:text="@string/dashboard"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+
+                <View
+                    android:id="@+id/View2"
+                    android:layout_width="160dp"
+                    android:layout_height="170dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="260dp"
+                    android:background="#CCD9B8"
+                    tools:ignore="RtlHardcoded" />
+
+                <View
+                    android:id="@+id/View3"
+                    android:layout_width="160dp"
+                    android:layout_height="170dp"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginTop="260dp"
+                    android:background="#CCD9B8"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="460dp"
+                    android:text="@string/transactions"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/borderedTextView"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="510dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/borderedTextView2"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="570dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/borderedTextView3"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="630dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/borderedTextView4"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="690dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/borderedTextView5"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="750dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/borderedTextView6"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="810dp"
+                    android:background="@drawable/border_textview"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="107dp"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="250dp"
+                    android:layout_marginTop="100dp"
+                    android:background="@drawable/round_btn4"
+                    android:drawableStart="@drawable/ic_arrow_up"
+                    android:paddingStart="5dp"
+                    android:text="@string/cash_out"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
+
+                <ImageView
+                    android:id="@+id/imageView28"
+                    android:layout_width="34dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="265dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_people" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="325dp"
+                    android:layout_marginStart="68dp"
+                    android:textColor="#F4F4F4"
+                    android:gravity="center"
+                    android:textSize="36sp"
+                    android:text="43"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="400dp"
+                    android:layout_marginStart="28dp"
+                    android:textColor="#F4F4F4"
+                    android:textSize="18sp"
+                    android:text="@string/total_passenger" />
+
+                <ImageView
+                    android:id="@+id/imageView29"
+                    android:layout_width="34dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="265dp"
+                    android:layout_marginStart="195dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_average_price" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="325dp"
+                    android:layout_marginStart="215dp"
+                    android:gravity="center"
+                    android:textColor="#F4F4F4"
+                    android:textSize="36sp"
+                    android:text="₱ 543"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="400dp"
+                    android:layout_marginStart="213dp"
+                    android:textColor="#F4F4F4"
+                    android:textSize="18sp"
+                    android:text="@string/total_income" />
+
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
