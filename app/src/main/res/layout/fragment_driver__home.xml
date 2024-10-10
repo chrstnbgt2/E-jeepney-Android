@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     tools:context=".Driver_HomeFragment">
 
     <ScrollView
@@ -58,7 +57,6 @@
                     android:text="@string/username"
                     android:textColor="#A5BE7D"
                     android:textSize="18sp" />
-
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="37dp"
@@ -162,7 +160,6 @@
                     android:textColor="#F4F4F4"
                     android:textSize="36sp"
                     tools:ignore="HardcodedText" />
-
                 <TextView
                     android:id="@+id/textView25"
                     android:layout_width="wrap_content"
@@ -181,7 +178,6 @@
                     android:layout_marginTop="265dp"
                     android:importantForAccessibility="no"
                     android:src="@drawable/ic_hot_price" />
-
                 <TextView
                     android:id="@+id/textView26"
                     android:layout_width="wrap_content"
@@ -203,7 +199,6 @@
                     android:text="@string/total_income"
                     android:textColor="#F4F4F4"
                     android:textSize="18sp" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -211,11 +206,11 @@
                     android:textSize="30sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:layout_marginVertical="470dp"
+                    android:layout_marginTop="470dp"
                     android:layout_marginStart="20dp"/>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/discount_card"
+                    android:id="@+id/qr_scanner_card"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -223,7 +218,7 @@
                     app:cardCornerRadius="8dp"
                     app:cardBackgroundColor="#CCD9B8"
                     app:contentPadding="0dp"
-                    android:layout_marginVertical="540dp"
+                    android:layout_marginTop="540dp"
                     android:layout_marginLeft="25dp"
                     tools:ignore="RtlHardcoded">
 
@@ -239,10 +234,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/discount"
+                    android:text="@string/qr_scanner"
                     android:fontFamily="@font/rubik"
-                    android:layout_marginVertical="635dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginTop ="635dp"
+                    android:layout_marginStart="30dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
@@ -256,7 +251,7 @@
                     app:cardElevation="4dp"
                     app:contentPadding="0dp"
                     android:layout_marginStart="140dp"
-                    android:layout_marginVertical="540dp">
+                    android:layout_marginTop="540dp">
 
                     <ImageView
                         android:id="@+id/imageView8"
@@ -265,11 +260,10 @@
                         android:src="@drawable/armchair"
                         tools:ignore="ContentDescription" />
                 </androidx.cardview.widget.CardView>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="640dp"
+                    android:layout_marginTop="640dp"
                     android:textStyle="bold"
                     android:textSize="17sp"
                     android:layout_marginStart="140dp"
@@ -278,14 +272,14 @@
                     android:fontFamily="@font/rubik"/>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/qr_card"
+                    android:id="@+id/qr_share_card"
                     android:layout_width="94dp"
                     android:layout_height="90dp"
                     app:cardBackgroundColor="#CCD9B8"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="4dp"
                     app:contentPadding="0dp"
-                    android:layout_marginVertical="540dp"
+                    android:layout_marginTop="540dp"
                     android:layout_marginStart="248dp">
 
                     <ImageView
@@ -296,6 +290,7 @@
                         android:src="@drawable/qr_code_2"
                         tools:ignore="ContentDescription" />
                 </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -304,14 +299,14 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/rubik"
                     android:textSize="17sp"
-                    android:layout_marginVertical="640dp"
+                    android:layout_marginTop="640dp"
                     android:layout_marginStart="240dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginVertical="670dp"
+                    android:layout_marginTop="670dp"
                     android:text="@string/transactions"
                     android:textColor="@color/black"
                     android:textSize="30sp"
@@ -322,29 +317,27 @@
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginVertical="720dp"
+                    android:layout_marginTop="720dp"
                     android:background="@drawable/border_textview"
                     android:gravity="center"
                     android:padding="10dp"
                     android:textSize="16sp" />
-
                 <View
                     android:id="@+id/View5"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginVertical="780dp"
+                    android:layout_marginTop="780dp"
                     android:background="@drawable/border_textview"
                     android:gravity="center"
                     android:padding="10dp"
                     android:textSize="16sp" />
-
                 <View
                     android:id="@+id/View6"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginVertical="840dp"
+                    android:layout_marginTop="840dp"
                     android:background="@drawable/border_textview"
                     android:gravity="center"
                     android:padding="10dp"
@@ -355,17 +348,18 @@
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginVertical="900dp"
+                    android:layout_marginTop="900dp"
                     android:background="@drawable/border_textview"
                     android:gravity="center"
                     android:padding="10dp"
                     android:textSize="16sp" />
+
                 <View
                     android:id="@+id/View8"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginVertical="960dp"
+                    android:layout_marginTop="960dp"
                     android:background="@drawable/border_textview"
                     android:gravity="center"
                     android:padding="10dp"
@@ -376,13 +370,11 @@
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginVertical="1020dp"
+                    android:layout_marginTop="1020dp"
                     android:background="@drawable/border_textview"
                     android:gravity="center"
                     android:padding="10dp"
                     android:textSize="16sp" />
-
-
             </FrameLayout>
         </LinearLayout>
     </ScrollView>

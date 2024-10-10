@@ -94,6 +94,15 @@
     <string name="delete_account">Delete Account</string>
     <string name="edit_information">Edit Information</string>
     <string name="done">Done</string>
+    <string name="qr_scanner">QR Scanner</string>
+    <string name="qr_code_scanner">QR Code Scanner</string>
+    <string name="scan_passenger_qr_code">Scan passenger QR Code</string>
+    <string name="upload_qr_code">Upload QR Code</string>
+    <string name="create_custom_qr_code">create Custom QR Code</string>
+    <string name="type_of_passenger">Type of Passenger</string>
+    <string name="regular">REGULAR</string>
+    <string name="discounted">DISCOUNTED</string>
+    <string name="generate">Generate</string>
     <string-array name="user_roles">
         <item>Passenger</item>
         <item>Conductor</item>

@@ -37,7 +37,7 @@ public class DriverActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.nav_history3) {
                 replaceFragment(new HistoryFragment());
             } else if (item.getItemId() == R.id.nav_profile3) {
-                replaceFragment(new ProfileFragment());
+                replaceFragment(new Driver_ProfileFragment());
             }
 
             return true;

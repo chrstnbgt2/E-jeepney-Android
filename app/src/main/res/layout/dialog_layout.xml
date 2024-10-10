@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/type_of_passenger"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/button_regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/regular"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_background" />
+
+    <Button
+        android:id="@+id/button_discounted"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:background="@drawable/button_background"
+        android:text="@string/discounted" />
+
+    <Button
+        android:id="@+id/button_generate"
+        android:layout_width="196dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_btn2"
+        android:text="@string/generate"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</LinearLayout>

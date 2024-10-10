@@ -3,10 +3,13 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import androidx.cardview.widget.CardView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +62,80 @@ public class Driver_HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_driver__home, container, false);
+        View view = inflater.inflate(R.layout.fragment_driver__home, container, false);
+
+        // Find the button2 for CashInFragment
+        Button button2 = view.findViewById(R.id.button2);
+
+        // Set an OnClickListener on button2
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of the CashInFragment
+                CashInFragment cashInFragment = new CashInFragment();
+
+                // Replace the current fragment with CashInFragment
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_driver, cashInFragment);
+                transaction.addToBackStack(null);  // Optional, adds the transaction to the back stack so the user can navigate back
+                transaction.commit();
+            }
+        });
+
+        // Find the qr_scanner_card for QR_ScannerFragment
+        CardView qrScannerCard = view.findViewById(R.id.qr_scanner_card);
+
+        // Set an OnClickListener on qr_scanner_card
+        qrScannerCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of the QR_ScannerFragment
+                QR_ScannerFragment qrScannerFragment = new QR_ScannerFragment();
+
+                // Replace the current fragment with QR_ScannerFragment
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_driver, qrScannerFragment);
+                transaction.addToBackStack(null);  // Optional, adds the transaction to the back stack so the user can navigate back
+                transaction.commit();
+            }
+        });
+
+        // Find the qr_share_card for QRFragment
+        CardView qrShareCard = view.findViewById(R.id.qr_share_card);
+
+        // Set an OnClickListener on qr_share_card
+        qrShareCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of the QRFragment
+                Driver_QRFragment driver_qrFragment = new Driver_QRFragment();
+
+                // Replace the current fragment with QRFragment
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_driver, driver_qrFragment);
+                transaction.addToBackStack(null);  // Optional, adds the transaction to the back stack so the user can navigate back
+                transaction.commit();
+            }
+        });
+
+        // Find the seat_card for CheckSeatFragment
+        CardView seatCard = view.findViewById(R.id.seat_card);
+
+        // Set an OnClickListener on seat_card
+        seatCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of the CheckSeatFragment
+                CheckSeatFragment checkSeatFragment = new CheckSeatFragment();
+
+                // Replace the current fragment with CheckSeatFragment
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_driver, checkSeatFragment);
+                transaction.addToBackStack(null);  // Optional, adds the transaction to the back stack so the user can navigate back
+                transaction.commit();
+            }
+        });
+
+        return view;
     }
 }
