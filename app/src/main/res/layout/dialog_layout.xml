@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/dialog_background"
-    android:padding="16dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/dialog_title"
@@ -13,6 +13,7 @@
         android:text="@string/type_of_passenger"
         android:textStyle="bold"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:gravity="center"
         android:layout_gravity="center" />
 
@@ -23,20 +24,22 @@
         android:text="@string/regular"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:background="@drawable/button_background" />
 
     <Button
         android:id="@+id/button_discounted"
-        android:layout_width="207dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
+        android:gravity="center"
         android:background="@drawable/button_background"
         android:text="@string/discounted" />
 
     <Button
         android:id="@+id/button_generate"
-        android:layout_width="196dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/round_btn2"
