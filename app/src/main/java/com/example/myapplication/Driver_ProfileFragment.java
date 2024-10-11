@@ -89,7 +89,7 @@ public class Driver_ProfileFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
                     }
-                }, 2000); // Delay of 2 seconds
+                }, 4000); // Delay of 2 seconds
             }
         });
 

@@ -1,15 +1,23 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-
+import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.cardview.widget.CardView;
+import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +34,10 @@ public class Driver_HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference usersRef;
+    private TextView textView8;
 
     public Driver_HomeFragment() {
         // Required empty public constructor
@@ -56,6 +68,11 @@ public class Driver_HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        // Initialize Firebase Database Reference
+        usersRef = FirebaseDatabase.getInstance().getReference("users");
     }
 
     @Override
@@ -63,6 +80,12 @@ public class Driver_HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_driver__home, container, false);
+
+        // Initialize TextView
+        textView8 = view.findViewById(R.id.textView8);
+
+        // Fetch user first name
+        fetchUserFirstName();
 
         // Find the button2 for CashInFragment
         Button button2 = view.findViewById(R.id.button2);
@@ -126,7 +149,7 @@ public class Driver_HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Create a new instance of the CheckSeatFragment
-                Conductor_Check_SeatFragment conductor_checkSeatFragment = new Conductor_Check_SeatFragment ();
+                Conductor_Check_SeatFragment conductor_checkSeatFragment = new Conductor_Check_SeatFragment();
 
                 // Replace the current fragment with CheckSeatFragment
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -137,5 +160,29 @@ public class Driver_HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void fetchUserFirstName() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            usersRef.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                        textView8.setText(firstName); // Set the first name to textView8
+                    } else {
+                        Log.e("UserData", "User data not found.");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
+                }
+            });
+        } else {
+            Log.e("UserAuth", "No authenticated user found.");
+        }
     }
 }

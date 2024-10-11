@@ -245,7 +245,7 @@
         android:id="@+id/button"
         android:layout_width="261dp"
         android:layout_height="36dp"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="600dp"
         android:background="@drawable/round_btn3"
         android:text="@string/log_out"
@@ -253,5 +253,15 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </FrameLayout>

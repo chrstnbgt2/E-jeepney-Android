@@ -2,6 +2,15 @@ package com.example.myapplication;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,13 +18,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +32,10 @@ import android.widget.Toast;
  * create an instance of this fragment.
  */
 public class My_ConductorFragment extends Fragment {
+
+    // Firebase references
+    private FirebaseAuth mAuth;
+    private TextView text1;
 
     // Parameter arguments
     private static final String ARG_PARAM1 = "param1";
@@ -55,6 +68,9 @@ public class My_ConductorFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -63,7 +79,11 @@ public class My_ConductorFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my__conductor, container, false);
 
-        /*setupNavigationButtons(view);*/
+        // Initialize TextView
+        text1 = view.findViewById(R.id.text1);
+
+        // Fetch the user's first and last name from Firebase
+        fetchUserFullName();
 
         // Initialize status dots
         statusDot = view.findViewById(R.id.statusDot);
@@ -74,16 +94,11 @@ public class My_ConductorFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new instance of MyConductor2Fragment
                 MyConductor2Fragment fragment = new MyConductor2Fragment();
-
-                // Begin a fragment transaction
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-
-                // Replace the current fragment with MyConductor2Fragment
-                transaction.replace(R.id.frame_conductor, fragment); // Ensure 'frame_conductor' is your actual container ID
-                transaction.addToBackStack(null); // Optional: Add to back stack
-                transaction.commit(); // Commit the transaction
+                transaction.replace(R.id.frame_conductor, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -101,100 +116,104 @@ public class My_ConductorFragment extends Fragment {
         linear2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new instance of View_MoreFragment
                 View_moreFragment viewMoreFragment = new View_moreFragment();
-
-                // Begin a fragment transaction
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-
-                // Replace the current fragment with View_MoreFragment
-                transaction.replace(R.id.frame_conductor, viewMoreFragment); // Ensure 'frame_conductor' is your container ID
-                transaction.addToBackStack(null); // Optional: Add to back stack
-                transaction.commit(); // Commit the transaction
+                transaction.replace(R.id.frame_conductor, viewMoreFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         return view;
     }
 
+    private void fetchUserFullName() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+            usersRef.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Retrieve the first name and last name from Firebase
+                        String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                        String lastName = dataSnapshot.child("lastName").getValue(String.class);
+
+                        // Set the full name to text1 TextView
+                        text1.setText(firstName + " " + lastName);
+                    } else {
+                        Log.e("UserData", "User data not found.");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
+                }
+            });
+        } else {
+            Log.e("UserAuth", "No authenticated user found.");
+        }
+    }
+
     // Method to show the dialog
     private void showDialog() {
-        // Create a dialog
         Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.dialog_conductor_options); // Use the dialog layout XML you provided
+        dialog.setContentView(R.layout.dialog_conductor_options);
 
-        // Set up dialog options
         LinearLayout setStatusOption = dialog.findViewById(R.id.set_status_option);
         LinearLayout editDetailsOption = dialog.findViewById(R.id.edit_details_option);
         LinearLayout viewMoreOption = dialog.findViewById(R.id.view_more_option);
 
-        // Set click listeners for the options
         setStatusOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Show the status dialog when set status option is clicked
                 showStatusDialog();
-                dialog.dismiss(); // Close the original dialog
+                dialog.dismiss();
             }
         });
 
         editDetailsOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new instance of Edit_DetailsFragment
                 Edit_DetailsFragment editDetailsFragment = new Edit_DetailsFragment();
-
-                // Begin a fragment transaction
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-
-                // Replace the current fragment with Edit_DetailsFragment
-                transaction.replace(R.id.frame_conductor, editDetailsFragment); // Ensure 'frame_conductor' is the container ID where you want to place the fragment
-                transaction.addToBackStack(null); // Optional: Add to back stack
-                transaction.commit(); // Commit the transaction
-
-                dialog.dismiss(); // Close the dialog after starting the fragment
+                transaction.replace(R.id.frame_conductor, editDetailsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                dialog.dismiss();
             }
         });
 
         viewMoreOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new instance of View_MoreFragment
                 View_moreFragment viewMoreFragment = new View_moreFragment();
-
-                // Begin a fragment transaction
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-
-                // Replace the current fragment with View_MoreFragment
-                transaction.replace(R.id.frame_conductor, viewMoreFragment); // Ensure 'frame_conductor' is the container ID where you want to place the fragment
-                transaction.addToBackStack(null); // Optional: Add to back stack
-                transaction.commit(); // Commit the transaction
-
-                dialog.dismiss(); // Close the dialog after starting the fragment
+                transaction.replace(R.id.frame_conductor, viewMoreFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                dialog.dismiss();
             }
         });
 
-        // Show the dialog
         dialog.show();
     }
 
     // Method to show the status dialog
     private void showStatusDialog() {
-        // Create a dialog
         Dialog statusDialog = new Dialog(getActivity());
-        statusDialog.setContentView(R.layout.dialog_set_status); // Use the set status dialog layout
+        statusDialog.setContentView(R.layout.dialog_set_status);
 
-        // Find the buttons in the status dialog
         Button btnActive = statusDialog.findViewById(R.id.btn_active);
         Button btnInactive = statusDialog.findViewById(R.id.btn_inactive);
 
-        // Set click listeners for the buttons
         btnActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 statusDot.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_dot_green));
                 Toast.makeText(getActivity(), "Status set to Active", Toast.LENGTH_SHORT).show();
-                statusDialog.dismiss(); // Close the dialog after setting the status
+                statusDialog.dismiss();
             }
         });
 
@@ -203,11 +222,10 @@ public class My_ConductorFragment extends Fragment {
             public void onClick(View v) {
                 statusDot.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_dot_orange));
                 Toast.makeText(getActivity(), "Status set to Inactive", Toast.LENGTH_SHORT).show();
-                statusDialog.dismiss(); // Close the dialog after setting the status
+                statusDialog.dismiss();
             }
         });
 
-        // Show the status dialog
         statusDialog.show();
     }
 }

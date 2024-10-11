@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -70,15 +71,33 @@ public class CashInFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Create a new instance of Driver_HomeFragment
-                Driver_HomeFragment driverHomeFragment = new Driver_HomeFragment();
+                HomeFragment homeFragment = new HomeFragment();
 
                 // Replace the current fragment with Driver_HomeFragment
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_driver, driverHomeFragment);
+                transaction.replace(R.id.frame_container,homeFragment);
                 transaction.addToBackStack(null); // Add this transaction to the back stack
                 transaction.commit();
             }
         });
+        // Find the ImageView by its ID
+        @SuppressLint("CutPasteId") ImageView imageView = view.findViewById(R.id.imageView19);
+
+        // Set an OnClickListener on the ImageView
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of Driver_HomeFragment
+                Driver_HomeFragment homeFragment = new Driver_HomeFragment();
+
+                // Replace the current fragment with Driver_HomeFragment
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_driver,homeFragment);
+                transaction.addToBackStack(null); // Add this transaction to the back stack
+                transaction.commit();
+            }
+        });
+
 
         return view;
     }

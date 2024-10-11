@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -64,7 +65,7 @@ public class CheckSeatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_check_seat, container, false);
 
         // Find the ImageView by its ID
-        ImageView imageView = view.findViewById(R.id.imageView24);
+        @SuppressLint("CutPasteId") ImageView imageView = view.findViewById(R.id.imageView24);
 
         // Set a click listener on the ImageView
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +86,7 @@ public class CheckSeatFragment extends Fragment {
             }
         });
         // Find the ImageView by its ID
-        ImageView imageview = view.findViewById(R.id.imageView24);
+        @SuppressLint("CutPasteId") ImageView imageview = view.findViewById(R.id.imageView24);
 
         // Set a click listener on the ImageView
         imageview.setOnClickListener(new View.OnClickListener() {
