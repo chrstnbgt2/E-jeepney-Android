@@ -126,11 +126,11 @@ public class Driver_HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Create a new instance of the CheckSeatFragment
-                CheckSeatFragment checkSeatFragment = new CheckSeatFragment();
+                Conductor_Check_SeatFragment conductor_checkSeatFragment = new Conductor_Check_SeatFragment ();
 
                 // Replace the current fragment with CheckSeatFragment
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_driver, checkSeatFragment);
+                transaction.replace(R.id.frame_driver, conductor_checkSeatFragment);
                 transaction.addToBackStack(null);  // Optional, adds the transaction to the back stack so the user can navigate back
                 transaction.commit();
             }

@@ -3,10 +3,12 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +61,51 @@ public class CheckSeatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_seat, container, false);
+        View view = inflater.inflate(R.layout.fragment_check_seat, container, false);
+
+        // Find the ImageView by its ID
+        ImageView imageView = view.findViewById(R.id.imageView24);
+
+        // Set a click listener on the ImageView
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of Driver_HomeFragment
+                Conductor_Check_SeatFragment conductor_checkSeatFragment = new Conductor_Check_SeatFragment ();
+
+                // Start a fragment transaction to replace the current fragment with Driver_HomeFragment
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame_driver, conductor_checkSeatFragment);
+
+                // Add to back stack if you want to allow back navigation
+                fragmentTransaction.addToBackStack(null);
+
+                // Commit the transaction
+                fragmentTransaction.commit();
+            }
+        });
+        // Find the ImageView by its ID
+        ImageView imageview = view.findViewById(R.id.imageView24);
+
+        // Set a click listener on the ImageView
+        imageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of Driver_HomeFragment
+                HomeFragment homeFragment = new HomeFragment();
+
+                // Start a fragment transaction to replace the current fragment with Driver_HomeFragment
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame_container,homeFragment);
+
+                // Add to back stack if you want to allow back navigation
+                fragmentTransaction.addToBackStack(null);
+
+                // Commit the transaction
+                fragmentTransaction.commit();
+            }
+        });
+
+        return view;
     }
 }

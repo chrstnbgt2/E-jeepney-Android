@@ -1,21 +1,20 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CashInFragment#newInstance} factory method to
+ * Use the {@link Conductor_Check_SeatFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CashInFragment extends Fragment {
+public class Conductor_Check_SeatFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,20 +25,12 @@ public class CashInFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public CashInFragment() {
+    public Conductor_Check_SeatFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CashInFragment.
-     */
-    public static CashInFragment newInstance(String param1, String param2) {
-        CashInFragment fragment = new CashInFragment();
+    public static Conductor_Check_SeatFragment newInstance(String param1, String param2) {
+        Conductor_Check_SeatFragment fragment = new Conductor_Check_SeatFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,22 +51,35 @@ public class CashInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cash_in, container, false);
+        View view = inflater.inflate(R.layout.fragment_conductor__check__seat, container, false);
 
-        // Find the ImageView by its ID
-        ImageView imageView19 = view.findViewById(R.id.imageView19);
-
-        // Set an OnClickListener on the ImageView
-        imageView19.setOnClickListener(new View.OnClickListener() {
+        // Find the button2 by its ID and set an OnClickListener
+        Button button = view.findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new instance of Driver_HomeFragment
+                // Create a new instance of the CheckSeatFragment
+                CheckSeatFragment checkSeatFragment = new CheckSeatFragment();
+
+                // Replace the current fragment with CheckSeatFragment
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_driver, checkSeatFragment);
+                transaction.addToBackStack(null);  // Optional, adds the transaction to the back stack so the user can navigate back
+                transaction.commit();
+            }
+        });
+        // Find the ImageView24 by its ID and set an OnClickListener
+        ImageView imageView24 = view.findViewById(R.id.imageView24);
+        imageView24.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of the Driver_HomeFragment
                 Driver_HomeFragment driverHomeFragment = new Driver_HomeFragment();
 
                 // Replace the current fragment with Driver_HomeFragment
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_driver, driverHomeFragment);
-                transaction.addToBackStack(null); // Add this transaction to the back stack
+                transaction.addToBackStack(null);  // Optional, adds the transaction to the back stack so the user can navigate back
                 transaction.commit();
             }
         });

@@ -1,12 +1,15 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +27,8 @@ public class Driver_ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private ProgressBar progressBar;
+
     public Driver_ProfileFragment() {
         // Required empty public constructor
     }
@@ -36,7 +41,6 @@ public class Driver_ProfileFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment Driver_ProfileFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static Driver_ProfileFragment newInstance(String param1, String param2) {
         Driver_ProfileFragment fragment = new Driver_ProfileFragment();
         Bundle args = new Bundle();
@@ -59,6 +63,36 @@ public class Driver_ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_driver__profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_driver__profile, container, false);
+
+        // Find the button by its ID
+        Button button = view.findViewById(R.id.button);
+
+        // Find the ProgressBar by its ID
+        progressBar = view.findViewById(R.id.progressBar);
+
+        // Set an OnClickListener on the button
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the ProgressBar
+                progressBar.setVisibility(View.VISIBLE);
+
+                // Simulate a delay using a Handler to mimic a loading process
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Hide the ProgressBar
+                        progressBar.setVisibility(View.GONE);
+
+                        // Create an Intent to start MainActivity2
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
+                    }
+                }, 2000); // Delay of 2 seconds
+            }
+        });
+
+        return view;
     }
 }

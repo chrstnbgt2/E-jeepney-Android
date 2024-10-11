@@ -19,7 +19,7 @@
 
             <!-- FrameLayout to overlap ImageView on top of View -->
             <FrameLayout
-                android:id="@+id/frame_conductor"
+                android:id="@+id/frame_driver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

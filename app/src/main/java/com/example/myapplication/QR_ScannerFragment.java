@@ -38,7 +38,6 @@ public class QR_ScannerFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment QR_ScannerFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static QR_ScannerFragment newInstance(String param1, String param2) {
         QR_ScannerFragment fragment = new QR_ScannerFragment();
         Bundle args = new Bundle();
@@ -70,13 +69,13 @@ public class QR_ScannerFragment extends Fragment {
         imageView24.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new instance of the Driver_HomeFragment
+                // Create a new instance of Driver_HomeFragment
                 Driver_HomeFragment driverHomeFragment = new Driver_HomeFragment();
 
                 // Replace the current fragment with Driver_HomeFragment
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_driver, driverHomeFragment);
-                transaction.addToBackStack(null);  // Optional, adds the transaction to the back stack so the user can navigate back
+                transaction.addToBackStack(null);  // Optional: Adds the transaction to the back stack
                 transaction.commit();
             }
         });

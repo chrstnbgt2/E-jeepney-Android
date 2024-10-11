@@ -3,10 +3,12 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +86,24 @@ public class DiscountFragment extends Fragment {
 
             // Show the PopupMenu
             popupMenu.show();
+        });
+
+        // Find the imageView24
+        ImageView imageView24 = view.findViewById(R.id.imageView24);
+
+        // Set an OnClickListener on imageView24
+        imageView24.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of Driver_HomeFragment
+                DiscountFragment discountFragment = new  DiscountFragment ();
+
+                // Replace the current fragment with Driver_HomeFragment
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_container, discountFragment);
+                transaction.addToBackStack(null);  // Optional: Adds the transaction to the back stack
+                transaction.commit();
+            }
         });
 
         return view;

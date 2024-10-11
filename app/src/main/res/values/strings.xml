@@ -103,6 +103,7 @@
     <string name="regular">REGULAR</string>
     <string name="discounted">DISCOUNTED</string>
     <string name="generate">Generate</string>
+    <string name="view_jeep_details">View Jeep Details</string>
     <string-array name="user_roles">
         <item>Passenger</item>
         <item>Conductor</item>

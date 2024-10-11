@@ -77,6 +77,17 @@ public class Driver_QRFragment extends Fragment {
         // Create the dialog
         AlertDialog dialog = builder.create();
 
+        // Find the button_generate inside the dialog layout
+        Button buttonGenerate = dialogLayout.findViewById(R.id.button_generate);
+
+        // Set an OnClickListener to close the dialog when button_generate is clicked
+        buttonGenerate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();  // Close the dialog
+            }
+        });
+
         // Show the dialog
         dialog.show();
     }
