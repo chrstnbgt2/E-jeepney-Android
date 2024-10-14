@@ -167,10 +167,10 @@ public class MainActivity2 extends AppCompatActivity {
         Intent intent;
         switch (role) {
             case "Conductor":
-                intent = new Intent(MainActivity2.this, ConductorActivity.class);
+                intent = new Intent(MainActivity2.this, DriverActivity.class);
                 break;
             case "Driver":
-                intent = new Intent(MainActivity2.this, DriverActivity.class);
+                intent = new Intent(MainActivity2.this, ConductorActivity.class);
                 break;
             case "Passenger":
             default:

@@ -34,9 +34,9 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="546dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:background="@color/white" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:textSize="24sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="155dp"
         android:layout_marginStart="25dp"/>
 
     <LinearLayout
