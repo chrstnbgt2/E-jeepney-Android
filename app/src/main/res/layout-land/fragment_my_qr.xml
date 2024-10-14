@@ -7,6 +7,13 @@
     tools:context=".MyQrFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,8 +26,8 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="489dp"
-        android:layout_marginTop="120dp"
-        android:background="#FFFFFF" />
+        android:background="#FFFFFF"
+        android:layout_marginTop="120dp"/>
 
     <View
         android:layout_width="347dp"
@@ -33,9 +40,10 @@
         android:id="@+id/textViewFirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="175dp"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="125dp"
         android:gravity="center"
+        android:text="hello"
         android:textColor="@color/black"
         android:textSize="24sp" />
 
@@ -43,9 +51,10 @@
         android:id="@+id/textViewPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginStart="332dp"
+        android:layout_marginTop="160dp"
         android:gravity="center"
+        android:text="hello"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -73,8 +82,8 @@
         android:text="@string/transfer_fees_may_apply"
         android:textSize="14sp"
         android:textColor="#A5BE7D"
-        android:layout_marginTop="530dp"
-        android:layout_marginStart="115dp"/>
+        android:layout_marginTop="485dp"
+        android:layout_marginStart="275dp"/>
 
     <Button
         android:layout_width="150dp"
@@ -82,7 +91,7 @@
         android:layout_gravity="bottom"
         android:background="@drawable/round_btn"
         android:layout_marginBottom="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="220dp"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:text="@string/share"
@@ -94,9 +103,11 @@
         android:layout_gravity="bottom"
         android:background="@drawable/round_btn"
         android:layout_marginBottom="20dp"
-        android:layout_marginStart="200dp"
+        android:layout_marginStart="400dp"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:text="@string/save"
         android:textStyle="bold"/>
+        </FrameLayout>
+    </ScrollView>
 </FrameLayout>

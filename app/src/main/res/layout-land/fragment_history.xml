@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    tools:context=".HistoryFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- FrameLayout to overlap ImageView on top of View -->
+            <FrameLayout
+                android:id="@+id/frame_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="600dp"
+                    android:layout_marginTop="150dp"
+                    android:background="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:text="@string/history"
+                    android:textSize="26sp"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:text="@string/recent_transactions"
+                    android:textStyle="bold"
+                    android:layout_marginTop="160dp"
+                    android:layout_marginStart="20dp"/>
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="39dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="380dp"
+                    android:layout_marginTop="163dp"
+                    android:src="@drawable/ic_menu"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textVie"
+                    android:layout_width="315dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="240dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie2"
+                    android:layout_width="315dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="300dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie3"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="360dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie4"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="420dp"
+                    android:layout_marginStart="70dp"/>
+
+
+                <TextView
+                    android:id="@+id/textVie5"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="480dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie6"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="540dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie7"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="600dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie8"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="660dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie9"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="720dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie10"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="780dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie11"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="840dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:id="@+id/textVie12"
+                    android:layout_width="316dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/txt_background"
+                    android:layout_marginTop="900dp"
+                    android:layout_marginStart="70dp"/>
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

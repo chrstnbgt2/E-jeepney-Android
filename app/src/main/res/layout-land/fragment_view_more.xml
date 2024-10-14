@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    tools:context=".View_moreFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/frame_conductor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <!-- Back Button Image -->
+        <ImageView
+            android:id="@+id/imageView24"
+            android:layout_width="50dp"
+            android:layout_height="47dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_backl"
+            tools:ignore="ContentDescription" />
+
+        <!-- Title TextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="335dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/my_conductor"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+
+    <!-- Content starts here -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="522dp"
+        android:layout_marginVertical="100dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- First Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_name"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/first_name"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry,TextFields" />
+
+        <!-- Middle Name (Optional) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/middle_name"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/middle_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/middle_name"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry,TextFields" />
+
+        <!-- Last Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/last_name"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/last_name"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry,TextFields" />
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <!-- Phone Number -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_number"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <!-- Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,RtlSymmetry" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/button_save_style"
+            android:text="@string/done"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    </FrameLayout>
+    </ScrollView>
+</FrameLayout>

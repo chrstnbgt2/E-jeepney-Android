@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Driver_QRFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+    <FrameLayout
+        android:id="@+id/frame_driver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView24"
+            android:layout_width="51dp"
+            android:layout_height="59dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_backl"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="@string/qr_code_share"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="250dp"/>
+
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="345dp"
+            android:layout_height="326dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginStart="150dp"
+            android:background="@drawable/bacground3" />
+
+        <ImageView
+            android:id="@+id/imageView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_qr"
+            android:layout_marginTop="200dp"
+           android:layout_marginStart="211dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textViewFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="Hello"
+            android:layout_marginTop="120dp"
+            android:layout_marginStart="300dp"
+            android:layout_marginEnd="5dp"/>
+
+        <ImageView
+            android:id="@+id/imageView26"
+            android:layout_width="71dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo"
+            android:layout_marginTop="280dp"
+            android:layout_marginStart="289dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/transfer_fees_may_apply"
+            android:textSize="14sp"
+            android:textColor="#A5BE7D"
+            android:layout_marginTop="440dp"
+            android:layout_marginStart="240dp"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="320dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="500dp"
+            android:layout_marginStart="150dp"
+            android:background="@drawable/round_btn5"
+            android:text="@string/create_custom_qr_code"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="580dp"
+            android:layout_marginStart="130dp"
+            android:background="@drawable/round_btn"
+            android:text="@string/share"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="580dp"
+            android:background="@drawable/round_btn"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    </ScrollView>
+</FrameLayout>

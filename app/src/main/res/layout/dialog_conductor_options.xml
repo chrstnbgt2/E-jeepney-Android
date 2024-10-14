@@ -42,7 +42,8 @@
         android:orientation="horizontal"
         android:paddingVertical="12dp"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        tools:ignore="UseCompoundDrawables">
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,7 +84,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
-            android:src="@drawable/ic_view_more" />
+            android:src="@drawable/ic_view_more"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
 </LinearLayout>

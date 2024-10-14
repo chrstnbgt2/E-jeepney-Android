@@ -30,17 +30,18 @@
                 tools:ignore="ContentDescription" />
 
             <!-- Title TextView -->
+
+            <!-- Divider View -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginStart="330dp"
+                android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:text="@string/check_seat"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
 
-            <!-- Divider View -->
             <View
                 android:id="@+id/view4"
                 android:layout_width="match_parent"

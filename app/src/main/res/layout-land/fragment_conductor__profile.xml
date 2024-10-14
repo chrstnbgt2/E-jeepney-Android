@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    tools:context=".Conductor_ProfileFragment">
+
+    <!-- Wrap content in a ScrollView for vertical scrolling -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/frame_conductor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+
+            <!-- Background View -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="815dp"
+                android:layout_marginTop="150dp"
+                android:background="@color/white" />
+
+            <!-- Profile Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="@string/my_profile"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <!-- Account Information -->
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="175dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:clickable="true"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="55dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_account"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/account_information"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView13"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_more"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <!-- My Conductor -->
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="255dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="6dp">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="55dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_conduct"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/my_conductor"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_more"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <!-- Terms and Conditions -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="329dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="6dp">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="55dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_terms"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/terms_and_conditions"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_more"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <!-- Privacy and Policy -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="395dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="6dp">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="55dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_privacy"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text4"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/privacy_and_policy"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView17"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_more"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <!-- Settings -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="465dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="6dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="55dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/ic_settings"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text5"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/settings"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView18"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_more"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <!-- Log Out Button -->
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="267dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="560dp"
+                android:background="@drawable/round_btn3"
+                android:text="@string/log_out"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+    </ScrollView>
+
+</FrameLayout>

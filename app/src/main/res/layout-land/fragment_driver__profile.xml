@@ -7,14 +7,20 @@
     android:background="#F4F4F4"
     tools:context=".Driver_ProfileFragment">
 
-<FrameLayout
-    android:id="@+id/frame_driver"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:ignore="UselessParent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <FrameLayout
+        android:id="@+id/frame_driver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="690dp"
+        android:layout_height="600dp"
         android:layout_marginTop="150dp"
         android:background="@color/white" />
 
@@ -177,7 +183,7 @@
         android:id="@+id/button"
         android:layout_width="236dp"
         android:layout_height="36dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="260dp"
         android:layout_marginTop="600dp"
         android:background="@drawable/round_btn3"
         android:text="@string/log_out"
@@ -195,6 +201,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</FrameLayout>
-
+    </FrameLayout>
+    </ScrollView>
 </FrameLayout>
