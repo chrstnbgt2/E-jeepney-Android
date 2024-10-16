@@ -31,8 +31,8 @@ public class MainActivity3 extends AppCompatActivity {
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        usersRef = database.getReference("users");  // Reference for user data
-        latestUserIdRef = database.getReference("latestUserId");  // Reference for tracking the last user ID
+        usersRef = database.getReference("users");
+        latestUserIdRef = database.getReference("latestUserId");
 
         // Get references to EditText fields
         firstNameInput = findViewById(R.id.person);
