@@ -63,7 +63,7 @@
                     android:id="@+id/imageView5"
                     android:layout_width="37dp"
                     android:layout_height="36dp"
-                    android:layout_marginStart="620dp"
+                    android:layout_marginStart="700dp"
                     android:layout_marginTop="16dp"
                     app:srcCompat="@drawable/notification"
                     tools:ignore="ContentDescription" />
@@ -132,7 +132,7 @@
                     android:id="@+id/button2"
                     android:layout_width="107dp"
                     android:layout_height="38dp"
-                    android:layout_marginStart="550dp"
+                    android:layout_marginStart="660dp"
                     android:layout_marginTop="100dp"
                     android:background="@drawable/round_btn4"
                     android:drawableStart="@drawable/ic_arrow_up"

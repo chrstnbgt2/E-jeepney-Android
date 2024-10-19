@@ -7,6 +7,10 @@
     android:background="@color/white"
     tools:context=".My_ConductorFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <FrameLayout
         android:id="@+id/frame_conductor"
         android:layout_width="match_parent"
@@ -32,7 +36,7 @@
             android:text="@string/my_conductor"
             android:textColor="@color/black"
             android:textSize="22sp" />
-    </FrameLayout>
+
 
     <TextView
         android:id="@+id/textView28"
@@ -49,7 +53,7 @@
         android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="31dp"
-        android:layout_marginStart="500dp"
+        android:layout_marginStart="600dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/round_btn6"
         android:drawableStart="@drawable/ic_addition"
@@ -65,11 +69,12 @@
         android:layout_height="38dp"
         android:src="@drawable/ic_filter"
         android:layout_marginTop="100dp"
-        android:layout_marginStart="600dp"
+        android:layout_marginStart="700dp"
         tools:ignore="ContentDescription" />
 
     <!-- Conductor Information -->
     <LinearLayout
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="175dp"
@@ -125,8 +130,8 @@
         <!-- Status Dot -->
         <View
             android:id="@+id/statusDot2"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="5dp"
+            android:layout_height="2dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/circle_dot_orange" />
@@ -148,9 +153,12 @@
         <ImageView
             android:id="@+id/imageView14"
             android:layout_width="35dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
             android:src="@drawable/ic_3dots"
             tools:ignore="ContentDescription" />
     </LinearLayout>
+
+</FrameLayout>
+    </ScrollView>
 </FrameLayout>

@@ -146,7 +146,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/rubik"
             android:text="@string/already_have_an_account"
             android:textColor="#FFFFFF"

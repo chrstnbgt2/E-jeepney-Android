@@ -40,21 +40,21 @@
         android:id="@+id/textViewFirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="330dp"
+        android:layout_marginStart="340dp"
         android:layout_marginTop="125dp"
         android:gravity="center"
-        android:text="hello"
+        android:text=""
         android:textColor="@color/black"
-        android:textSize="24sp" />
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/textViewPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="332dp"
+        android:layout_marginStart="340dp"
         android:layout_marginTop="160dp"
         android:gravity="center"
-        android:text="hello"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -75,15 +75,15 @@
         android:src="@drawable/logo"
         tools:ignore="ContentDescription" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="@string/transfer_fees_may_apply"
-        android:textSize="14sp"
-        android:textColor="#A5BE7D"
-        android:layout_marginTop="485dp"
-        android:layout_marginStart="275dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="300dp"
+                android:layout_marginTop="485dp"
+                android:text="@string/transfer_fees_may_apply"
+                android:textColor="#A5BE7D"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
     <Button
         android:layout_width="150dp"

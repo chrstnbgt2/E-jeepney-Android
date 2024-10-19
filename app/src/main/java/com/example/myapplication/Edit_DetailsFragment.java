@@ -1,12 +1,12 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
+import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,12 +15,8 @@ import android.view.ViewGroup;
  */
 public class Edit_DetailsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -28,15 +24,6 @@ public class Edit_DetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Edit_DetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static Edit_DetailsFragment newInstance(String param1, String param2) {
         Edit_DetailsFragment fragment = new Edit_DetailsFragment();
         Bundle args = new Bundle();
@@ -58,7 +45,25 @@ public class Edit_DetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit__details, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit__details, container, false);
+
+        // Set up the ImageView click listener
+        ImageView imageView = view.findViewById(R.id.imageView24);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyConductorFragment();
+            }
+        });
+
+        return view;
+    }
+
+    private void openMyConductorFragment() {
+        My_ConductorFragment fragment = new My_ConductorFragment();
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_conductor, fragment); // Ensure you have a FrameLayout with this ID in your layout
+        transaction.addToBackStack(null); // Optional: to add the transaction to the back stack
+        transaction.commit();
     }
 }

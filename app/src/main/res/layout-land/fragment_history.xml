@@ -24,19 +24,13 @@
                 android:layout_height="wrap_content">
 
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="600dp"
-                    android:layout_marginTop="150dp"
-                    android:background="#FFFFFF" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textStyle="bold"
                     android:text="@string/history"
                     android:textSize="26sp"
-                    android:layout_margin="20dp"
+                    android:layout_margin="30dp"
                     android:textColor="@color/black"/>
 
                 <TextView
@@ -47,13 +41,13 @@
                     android:text="@string/recent_transactions"
                     android:textStyle="bold"
                     android:layout_marginTop="160dp"
-                    android:layout_marginStart="20dp"/>
+                    android:layout_marginStart="30dp"/>
 
                 <ImageView
                     android:id="@+id/imageView11"
                     android:layout_width="39dp"
                     android:layout_height="32dp"
-                    android:layout_marginStart="380dp"
+                    android:layout_marginStart="700dp"
                     android:layout_marginTop="163dp"
                     android:src="@drawable/ic_menu"
                     tools:ignore="ContentDescription" />
@@ -62,9 +56,9 @@
                     android:id="@+id/textVie"
                     android:layout_width="315dp"
                     android:layout_height="51dp"
-                    android:background="@drawable/txt_background"
+                    android:layout_marginStart="250dp"
                     android:layout_marginTop="240dp"
-                    android:layout_marginStart="70dp"/>
+                    android:background="@drawable/txt_background" />
 
                 <TextView
                     android:id="@+id/textVie2"
@@ -72,7 +66,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="300dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie3"
@@ -80,7 +74,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="360dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie4"
@@ -88,7 +82,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="420dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
 
                 <TextView
@@ -97,7 +91,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="480dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie6"
@@ -105,7 +99,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="540dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie7"
@@ -113,7 +107,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="600dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie8"
@@ -121,7 +115,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="660dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie9"
@@ -129,7 +123,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="720dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie10"
@@ -137,7 +131,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="780dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie11"
@@ -145,7 +139,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="840dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
 
                 <TextView
                     android:id="@+id/textVie12"
@@ -153,7 +147,7 @@
                     android:layout_height="51dp"
                     android:background="@drawable/txt_background"
                     android:layout_marginTop="900dp"
-                    android:layout_marginStart="70dp"/>
+                    android:layout_marginStart="250dp"/>
             </FrameLayout>
         </LinearLayout>
     </ScrollView>

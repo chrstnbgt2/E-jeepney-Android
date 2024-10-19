@@ -48,8 +48,7 @@
                     android:gravity="center"
                     android:text="@string/welcome"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -57,16 +56,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="165dp"
                     android:layout_marginTop="29dp"
+                    android:gravity="center"
                     android:text=""
                     android:textColor="#A5BE7D"
-                    android:gravity="center"
                     android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="37dp"
                     android:layout_height="36dp"
-                    android:layout_marginStart="660dp"
+                    android:layout_marginStart="700dp"
                     android:layout_marginTop="16dp"
                     app:srcCompat="@drawable/notification"
                     tools:ignore="ContentDescription" />
@@ -209,8 +208,8 @@
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="107dp"
-                    android:layout_height="37dp"
-                    android:layout_marginStart="600dp"
+                    android:layout_height="31dp"
+                    android:layout_marginStart="660dp"
                     android:layout_marginTop="100dp"
                     android:background="@drawable/round_btn4"
                     android:drawableStart="@drawable/ic_arrow_up"
@@ -245,18 +244,18 @@
                     android:id="@+id/textView25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="400dp"
                     android:layout_marginStart="228dp"
+                    android:layout_marginTop="400dp"
+                    android:text="@string/total_passenger"
                     android:textColor="#F4F4F4"
-                    android:textSize="18sp"
-                    android:text="@string/total_passenger" />
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imageView29"
                     android:layout_width="34dp"
                     android:layout_height="35dp"
-                    android:layout_marginTop="265dp"
                     android:layout_marginStart="395dp"
+                    android:layout_marginTop="265dp"
                     android:importantForAccessibility="no"
                     android:src="@drawable/ic_average_price" />
 
@@ -264,12 +263,12 @@
                     android:id="@+id/textView26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="325dp"
                     android:layout_marginStart="415dp"
+                    android:layout_marginTop="325dp"
                     android:gravity="center"
+                    android:text="₱ 543"
                     android:textColor="#F4F4F4"
                     android:textSize="36sp"
-                    android:text="₱ 543"
                     tools:ignore="HardcodedText" />
 
                 <TextView

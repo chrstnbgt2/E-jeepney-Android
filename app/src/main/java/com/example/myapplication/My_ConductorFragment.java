@@ -102,7 +102,7 @@ public class My_ConductorFragment extends Fragment {
             }
         });
 
-        // Find the image view in the inflated layout
+        // Find the image view for statusDot
         ImageView imageView = view.findViewById(R.id.imageView13);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,9 +111,18 @@ public class My_ConductorFragment extends Fragment {
             }
         });
 
+        // Find the image view for statusDot2
+        ImageView imageview = view.findViewById(R.id.imageView14);
+        imageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogForStatusDot2(); // Call the new method for statusDot2
+            }
+        });
+
         // Find linear2 in the inflated layout and set click listener for opening View_MoreFragment
-        LinearLayout linear2 = view.findViewById(R.id.linear2);
-        linear2.setOnClickListener(new View.OnClickListener() {
+        TextView text2 = view.findViewById(R.id.text2);
+        text2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View_moreFragment viewMoreFragment = new View_moreFragment();
@@ -200,7 +209,7 @@ public class My_ConductorFragment extends Fragment {
         dialog.show();
     }
 
-    // Method to show the status dialog
+    // Method to show the status dialog for statusDot
     private void showStatusDialog() {
         Dialog statusDialog = new Dialog(getActivity());
         statusDialog.setContentView(R.layout.dialog_set_status);
@@ -221,6 +230,79 @@ public class My_ConductorFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 statusDot.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_dot_orange));
+                Toast.makeText(getActivity(), "Status set to Inactive", Toast.LENGTH_SHORT).show();
+                statusDialog.dismiss();
+            }
+        });
+
+        statusDialog.show();
+    }
+
+    // Method to show the dialog for statusDot2
+    private void showDialogForStatusDot2() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_conductor_options);
+
+        LinearLayout setStatusOption = dialog.findViewById(R.id.set_status_option);
+        LinearLayout editDetailsOption = dialog.findViewById(R.id.edit_details_option);
+        LinearLayout viewMoreOption = dialog.findViewById(R.id.view_more_option);
+
+        setStatusOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showStatusDialogForDot2(); // Show the status dialog for statusDot2
+                dialog.dismiss();
+            }
+        });
+
+        editDetailsOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Edit_DetailsFragment editDetailsFragment = new Edit_DetailsFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_conductor, editDetailsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                dialog.dismiss();
+            }
+        });
+
+        viewMoreOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View_moreFragment viewMoreFragment = new View_moreFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_conductor, viewMoreFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    // Method to show the status dialog for statusDot2
+    private void showStatusDialogForDot2() {
+        Dialog statusDialog = new Dialog(getActivity());
+        statusDialog.setContentView(R.layout.dialog_set_status);
+
+        Button btnActive = statusDialog.findViewById(R.id.btn_active);
+        Button btnInactive = statusDialog.findViewById(R.id.btn_inactive);
+
+        btnActive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusDot2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_dot_green));
+                Toast.makeText(getActivity(), "Status set to Active", Toast.LENGTH_SHORT).show();
+                statusDialog.dismiss();
+            }
+        });
+
+        btnInactive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusDot2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_dot_orange));
                 Toast.makeText(getActivity(), "Status set to Inactive", Toast.LENGTH_SHORT).show();
                 statusDialog.dismiss();
             }
