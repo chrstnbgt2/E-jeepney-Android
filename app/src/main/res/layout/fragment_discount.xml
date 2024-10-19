@@ -255,9 +255,10 @@
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/uploadFileTxt"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:layout_weight="1"
                         android:background="@drawable/round_edit_txt"
                         android:clickable="true"
@@ -269,12 +270,14 @@
                         tools:ignore="Autofill,RtlSymmetry,TextFields" />
 
                     <Button
+                        android:id="@+id/browseFileButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:textColor="@color/black"
                         android:background="#B4B4B4"
                         android:textSize="12sp"
+                        android:clickable="true"
                         android:padding="10dp"
                         android:text="@string/browse_files" />
                 </LinearLayout>
@@ -283,7 +286,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="50dp"
                     android:background="@drawable/round_btn2"
                     android:text="@string/submit"
                     android:textColor="@color/white" />

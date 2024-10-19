@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <!-- Add internet permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Permission for Android 13 (API 33) or higher to read images -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <!-- No additional permission is required for general files like PDFs -->
 
     <application
         android:allowBackup="true"
@@ -14,6 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
+        <!-- Activities in your application -->
         <activity
             android:name=".ConductorActivity2"
             android:exported="false" />
@@ -49,7 +57,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
