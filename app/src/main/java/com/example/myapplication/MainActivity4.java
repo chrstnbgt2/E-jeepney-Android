@@ -108,14 +108,13 @@ public class MainActivity4 extends AppCompatActivity {
 
     private void generateAndUploadQRCode(String uid, String role, String firstName, String middleName, String lastName, String phoneNumber, String email) {
         try {
-            // QR Code data: you can customize what gets encoded in the QR code
+            // QR Code data
             String qrData = "UID: " + uid + "\nName: " + firstName + " " + lastName + "\nRole: " + role;
 
             // Generate the QR code using ZXing
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.encodeBitmap(qrData, com.google.zxing.BarcodeFormat.QR_CODE, 400, 400);
 
-            // Check if bitmap generation was successful
             if (bitmap == null) {
                 Log.e("QRCodeError", "Bitmap is null after QR code generation");
                 Toast.makeText(MainActivity4.this, "Error generating QR code.", Toast.LENGTH_SHORT).show();
@@ -166,7 +165,13 @@ public class MainActivity4 extends AppCompatActivity {
         userDetails.put("wallet_balance", 0); // Default wallet balance
         userDetails.put("transaction", null); // Placeholder for future transactions
 
-        // Depending on the role, save under the appropriate node
+        // If the role is "Driver", add predefined conductor and jeepney details
+        if (role.equals("Driver")) {
+            userDetails.put("conductor", "Default Conductor Name"); // Predefined conductor
+            userDetails.put("jeepney", "Default Jeepney Details");  // Predefined jeepney
+        }
+
+        // Save data to Firebase under appropriate node based on role
         switch (role) {
             case "Passenger":
                 databaseReference.child("passenger").child(uid).setValue(userDetails)
@@ -213,7 +218,6 @@ public class MainActivity4 extends AppCompatActivity {
                 break;
         }
     }
-
     private void navigateToNextActivity(String role) {
         Intent intent;
         switch (role) {
