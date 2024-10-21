@@ -1,12 +1,18 @@
 package com.example.myapplication;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class User {
     private String firstName;
     private String middleName;
     private String lastName;
     private String phoneNumber;
     private String email;
-    private String role; // Added role field
+    private String role;
+    private Map<String, Object> passenger;
+    private Map<String, Object> conductor;
+    private Map<String, Object> driver;
 
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
     public User() {}
@@ -19,54 +25,93 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.role = role;
+
+        // Initialize nested role nodes
+        this.passenger = initializePassengerNode();
+        this.conductor = initializeConductorNode();
+        this.driver = initializeDriverNode();  // Includes jeepney details if role is Driver
     }
 
-    // Getters and setters
-    public String getFirstName() {
-        return firstName;
+    // Initialize the Passenger node
+    private Map<String, Object> initializePassengerNode() {
+        Map<String, Object> passengerNode = new HashMap<>();
+        passengerNode.put("transaction", "");
+        passengerNode.put("walletBalance", 0.0);
+        passengerNode.put("qrCode", "");  // Empty placeholder for QR code
+        return passengerNode;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    // Initialize the Conductor node
+    private Map<String, Object> initializeConductorNode() {
+        Map<String, Object> conductorNode = new HashMap<>();
+        conductorNode.put("transaction", "");
+        conductorNode.put("walletBalance", 0.0);
+        conductorNode.put("qrCode", "");  // Empty placeholder for QR code
+        return conductorNode;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    // Initialize the Driver node (including Jeepney details)
+    private Map<String, Object> initializeDriverNode() {
+        Map<String, Object> driverNode = new HashMap<>();
+        driverNode.put("transaction", "");
+        driverNode.put("walletBalance", 0.0);
+        driverNode.put("qrCode", "");  // Empty placeholder for QR code
+        driverNode.put("jeepney", initializeJeepneyNode());  // Include jeepney details within the driver node
+        return driverNode;
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    // Initialize the Jeepney node
+    private Map<String, Object> initializeJeepneyNode() {
+        Map<String, Object> jeepneyNode = new HashMap<>();
+        jeepneyNode.put("plateNo", "");
+        jeepneyNode.put("capacity", 0);
+        jeepneyNode.put("route", "");
+        jeepneyNode.put("status", "");
+        jeepneyNode.put("conductor", null);  // Leave conductor null for now
+        return jeepneyNode;
     }
 
-    public String getLastName() {
-        return lastName;
+    // Getters and setters for role nodes
+    public Map<String, Object> getPassenger() {
+        return passenger;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassenger(Map<String, Object> passenger) {
+        this.passenger = passenger;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Map<String, Object> getConductor() {
+        return conductor;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setConductor(Map<String, Object> conductor) {
+        this.conductor = conductor;
     }
 
-    public String getEmail() {
-        return email;
+    public Map<String, Object> getDriver() {
+        return driver;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDriver(Map<String, Object> driver) {
+        this.driver = driver;
     }
 
-    public String getRole() { // Getter for role
-        return role;
-    }
+    // Other existing getters and setters
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public void setRole(String role) { // Setter for role
-        this.role = role;
-    }
+    public String getMiddleName() { return middleName; }
+    public void setMiddleName(String middleName) { this.middleName = middleName; }
+
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }

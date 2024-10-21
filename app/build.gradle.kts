@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.zxing.core)
+    implementation(libs.zxing.android.embedded)
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -43,6 +45,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

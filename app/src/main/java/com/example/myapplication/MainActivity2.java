@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 public class MainActivity2 extends AppCompatActivity {
 
     private EditText emailAddress;
@@ -128,25 +130,51 @@ public class MainActivity2 extends AppCompatActivity {
      * @param uid The unique identifier of the user.
      */
     private void fetchUserRoleAndNavigate(String uid) {
-        usersRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-
+        // Check in each role node sequentially to find the user
+        usersRef.child("passenger").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Retrieve the User object
-                    User user = dataSnapshot.getValue(User.class);
-                    if (user != null) {
-                        String role = user.getRole();
-                        Log.d("UserRole", "User Role: " + role);
-                        navigateToNextActivity(role);
-                    } else {
-                        Log.e("UserData", "User data is null.");
-                        Toast.makeText(MainActivity2.this, "User data is unavailable.", Toast.LENGTH_SHORT).show();
-                    }
+                    // User is a Passenger
+                    navigateToNextActivity("Passenger");
                 } else {
-                    // User data does not exist in the database
-                    Log.e("UserData", "User data does not exist.");
-                    Toast.makeText(MainActivity2.this, "User data does not exist.", Toast.LENGTH_SHORT).show();
+                    // Check if user is a Conductor
+                    usersRef.child("conductor").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                // User is a Conductor
+                                navigateToNextActivity("Conductor");
+                            } else {
+                                // Check if user is a Driver
+                                usersRef.child("driver").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            // User is a Driver
+                                            navigateToNextActivity("Driver");
+                                        } else {
+                                            // User role not found
+                                            Log.e("UserRole", "User role not found.");
+                                            Toast.makeText(MainActivity2.this, "User role not found.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
+                                        Toast.makeText(MainActivity2.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
+                            Toast.makeText(MainActivity2.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
 
@@ -167,10 +195,10 @@ public class MainActivity2 extends AppCompatActivity {
         Intent intent;
         switch (role) {
             case "Conductor":
-                intent = new Intent(MainActivity2.this, DriverActivity.class);
+                intent = new Intent(MainActivity2.this, ConductorActivity.class);
                 break;
             case "Driver":
-                intent = new Intent(MainActivity2.this, ConductorActivity.class);
+                intent = new Intent(MainActivity2.this, DriverActivity.class);
                 break;
             case "Passenger":
             default:
