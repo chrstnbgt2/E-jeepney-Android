@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView; // Import for TextView
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,6 +37,7 @@ public class MainActivity4 extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private Spinner roleSpinner;
+    private TextView textView7; // Declare the TextView
 
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
@@ -56,6 +60,7 @@ public class MainActivity4 extends AppCompatActivity {
         passwordEditText = findViewById(R.id.person3);
         roleSpinner = findViewById(R.id.roleSpinner);
         Button registerButton = findViewById(R.id.button5);
+        textView7 = findViewById(R.id.textView7); // Initialize textView7
 
         // Create a list of roles
         List<String> roles = new ArrayList<>();
@@ -78,6 +83,16 @@ public class MainActivity4 extends AppCompatActivity {
 
         // Set click listener for Register button
         registerButton.setOnClickListener(v -> registerUser(firstName, middleName, lastName));
+
+        // Set click listener for textView7
+        textView7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to start MainActivity2
+                Intent intent = new Intent(MainActivity4.this, MainActivity2.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void registerUser(String firstName, String middleName, String lastName) {
@@ -86,8 +101,21 @@ public class MainActivity4 extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         String role = roleSpinner.getSelectedItem().toString();
 
+        // Validate input fields
         if (phoneNumber.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(MainActivity4.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate role selection
+        if (role.equals("Select Role")) {
+            Toast.makeText(MainActivity4.this, "Please select a valid role", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate password length
+        if (password.length() < 6) {
+            Toast.makeText(MainActivity4.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -100,21 +128,26 @@ public class MainActivity4 extends AppCompatActivity {
                             generateAndUploadQRCode(user.getUid(), role, firstName, middleName, lastName, phoneNumber, email);
                         }
                     } else {
-                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Registration failed.";
-                        Toast.makeText(MainActivity4.this, "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                            Toast.makeText(MainActivity4.this, "User with this email already exists", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String errorMessage = task.getException() != null ? task.getException().getMessage() : "Registration failed.";
+                            Toast.makeText(MainActivity4.this, "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
 
     private void generateAndUploadQRCode(String uid, String role, String firstName, String middleName, String lastName, String phoneNumber, String email) {
         try {
-            // QR Code data
-            String qrData = "UID: " + uid + "\nName: " + firstName + " " + lastName + "\nRole: " + role;
+            // QR Code data: including phone number and email for better identification
+            String qrData = "UID: " + uid + "\nName: " + firstName + " " + middleName + " " + lastName + "\nRole: " + role + "\nPhone: " + phoneNumber + "\nEmail: " + email;
 
             // Generate the QR code using ZXing
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.encodeBitmap(qrData, com.google.zxing.BarcodeFormat.QR_CODE, 400, 400);
 
+            // Check if bitmap generation was successful
             if (bitmap == null) {
                 Log.e("QRCodeError", "Bitmap is null after QR code generation");
                 Toast.makeText(MainActivity4.this, "Error generating QR code.", Toast.LENGTH_SHORT).show();
@@ -165,13 +198,7 @@ public class MainActivity4 extends AppCompatActivity {
         userDetails.put("wallet_balance", 0); // Default wallet balance
         userDetails.put("transaction", null); // Placeholder for future transactions
 
-        // If the role is "Driver", add predefined conductor and jeepney details
-        if (role.equals("Driver")) {
-            userDetails.put("conductor", "Default Conductor Name"); // Predefined conductor
-            userDetails.put("jeepney", "Default Jeepney Details");  // Predefined jeepney
-        }
-
-        // Save data to Firebase under appropriate node based on role
+        // Depending on the role, save under the appropriate node
         switch (role) {
             case "Passenger":
                 databaseReference.child("passenger").child(uid).setValue(userDetails)
@@ -218,6 +245,7 @@ public class MainActivity4 extends AppCompatActivity {
                 break;
         }
     }
+
     private void navigateToNextActivity(String role) {
         Intent intent;
         switch (role) {

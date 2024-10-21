@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView; // Import TextView
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -42,6 +43,17 @@ public class MainActivity3 extends AppCompatActivity {
         // Button click listener to navigate to MainActivity4
         Button register = findViewById(R.id.button4);
         register.setOnClickListener(v -> registerUser());
+
+        // Set up TextView click listener to open MainActivity2
+        TextView textView5 = findViewById(R.id.textView5);
+        textView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to start MainActivity2
+                Intent intent = new Intent(MainActivity3.this, MainActivity2.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void registerUser() {

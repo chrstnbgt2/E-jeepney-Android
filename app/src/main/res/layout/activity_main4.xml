@@ -178,7 +178,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/rubik"
-        android:text="@string/register"
+        android:text="@string/sign_in"
         android:textColor="#99CC00"
         android:textSize="13sp"
         android:textStyle="bold"

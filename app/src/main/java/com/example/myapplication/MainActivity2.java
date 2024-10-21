@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -58,6 +59,13 @@ public class MainActivity2 extends AppCompatActivity {
         showHidePassIcon = findViewById(R.id.showHidePassIcon);
         progressBar = findViewById(R.id.progressBar);
         Button login = findViewById(R.id.LogInButton);
+
+          // Initialize the TextView and set OnClickListener
+        TextView textView5 = findViewById(R.id.textView5);
+        textView5.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity2.this, MainActivity3.class);
+            startActivity(intent);
+        });
 
         // Set the initial input type to password
         passcodeTxt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
