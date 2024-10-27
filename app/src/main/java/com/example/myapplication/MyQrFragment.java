@@ -1,12 +1,13 @@
 package com.example.myapplication;
 
-import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,63 +19,33 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyQrFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MyQrFragment extends Fragment {
 
     // Firebase Auth and Database references
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-
-    // TextViews for displaying firstName and phoneNumber
-    private TextView firstNameTextView;
-    private TextView phoneNumberTextView;
-
-    // Fragment arguments
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
+    private ImageView imageViewQR;
 
     public MyQrFragment() {
         // Required empty public constructor
     }
 
-    public static MyQrFragment newInstance(String param1, String param2) {
-        MyQrFragment fragment = new MyQrFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_qr, container, false);
 
-        // Initialize Firebase Auth and Database reference
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
-
-        // Initialize TextViews for firstName and phoneNumber
-        firstNameTextView = view.findViewById(R.id.textViewFirstName);
-        phoneNumberTextView = view.findViewById(R.id.textViewPhoneNumber);
+        // Initialize ImageView for QR code
+        imageViewQR = view.findViewById(R.id.imageView1);
 
         // Fetch and display user data from Firebase
         fetchUserData();
@@ -85,39 +56,61 @@ public class MyQrFragment extends Fragment {
     private void fetchUserData() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            mDatabase.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        // Retrieve firstName and phoneNumber
-                        String firstName = dataSnapshot.child("firstName").getValue(String.class);
-                        String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+            String userId = currentUser.getUid();
 
-                        // Set the retrieved values to the TextViews
-                        if (firstName != null) {
-                            firstNameTextView.setText(firstName);
-                        } else {
-                            firstNameTextView.setText("First name not found");
-                        }
-
-                        if (phoneNumber != null) {
-                            phoneNumberTextView.setText(phoneNumber);
-                        } else {
-                            phoneNumberTextView.setText("Phone number not found");
-                        }
-                    } else {
-                        Log.e("UserData", "User data not found.");
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
-                }
-            });
+            // Check in the "passenger" node first
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+            checkUserInNode(usersRef.child("passenger").child(userId), "Passenger");
         } else {
             Log.e("UserAuth", "No authenticated user found.");
         }
+    }
+
+    private void checkUserInNode(DatabaseReference userRef, String role) {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // User found, load the QR code URL
+                    String qrUrl = dataSnapshot.child("qr").getValue(String.class);
+                    if (qrUrl != null && !qrUrl.isEmpty()) {
+                        loadQRImage(qrUrl);
+                    } else {
+                        Log.e("UserData", "QR URL is empty for " + role);
+                    }
+                } else {
+                    // If user not found in this node, check in the next node
+                    if (role.equals("Passenger")) {
+                        checkUserInNode(FirebaseDatabase.getInstance().getReference("users/conductor").child(userRef.getKey()), "Conductor");
+                    } else if (role.equals("Conductor")) {
+                        checkUserInNode(FirebaseDatabase.getInstance().getReference("users/driver").child(userRef.getKey()), "Driver");
+                    } else {
+                        Log.e("UserData", "User data not found in any role.");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void loadQRImage(String qrUrl) {
+        // Create a reference to the QR code image in Firebase Storage
+        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(qrUrl);
+
+        // Download the image as a byte array
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
+            // Convert the byte array to a Bitmap
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+            // Display the bitmap in the ImageView
+            imageViewQR.setImageBitmap(bitmap);
+        }).addOnFailureListener(exception -> {
+            Log.e("StorageError", "Failed to load QR image: " + exception.getMessage());
+        });
     }
 }
