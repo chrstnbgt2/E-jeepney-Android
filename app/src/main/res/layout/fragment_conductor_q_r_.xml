@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
-    tools:context=".MyQrFragment">
+    tools:context=".ConductorQR_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -85,7 +84,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/round_btn"
-        android:text="@string/qr_code_share"
+        android:text="@string/qr_scanner"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -101,4 +100,5 @@
         android:textSize="18sp"
         android:text="@string/save"
         android:textStyle="bold"/>
+
 </FrameLayout>

@@ -64,7 +64,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="255dp"
+        android:layout_marginTop="250dp"
         android:clickable="true"
         android:gravity="center"
         android:orientation="horizontal"
@@ -74,50 +74,14 @@
         <ImageView
             android:layout_width="55dp"
             android:layout_height="42dp"
-            android:src="@drawable/ic_favorites"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="235dp"
-            android:layout_height="46dp"
-            android:gravity="center"
-            android:text="@string/favorites"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="35dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_more"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="323dp"
-        android:clickable="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingVertical="6dp"
-        tools:ignore="UseCompoundDrawables,UselessLeaf">
-
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="42dp"
-            android:src="@drawable/ic_offers"
+            android:src="@drawable/discount"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="237dp"
             android:layout_height="44dp"
             android:gravity="center"
-            android:text="@string/offers"
+            android:text="@string/discount"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -136,7 +100,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="389dp"
+        android:layout_marginTop="310dp"
         android:clickable="true"
         android:orientation="horizontal"
         android:gravity="center"
@@ -172,43 +136,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="455dp"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingVertical="6dp"
-        tools:ignore="UseCompoundDrawables,UselessLeaf">
-
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="42dp"
-            android:src="@drawable/ic_privacy"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="238dp"
-            android:layout_height="46dp"
-            android:gravity="center"
-            android:text="@string/privacy_and_policy"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageView17"
-            android:layout_width="35dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_more"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="525dp"
+        android:layout_marginTop="370dp"
         android:clickable="true"
         android:orientation="horizontal"
         android:paddingVertical="6dp"

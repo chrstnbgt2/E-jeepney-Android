@@ -97,26 +97,12 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="137dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp"
-            android:layout_marginStart="30dp"
-            android:background="@drawable/round_btn"
-            android:text="@string/share"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
         <Button
             android:id="@+id/button7"
-            android:layout_width="137dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="200dp"
+            android:layout_marginStart="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/round_btn"
             android:text="@string/save"

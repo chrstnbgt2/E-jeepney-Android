@@ -71,54 +71,54 @@ public class HomeFragment extends Fragment {
         // Call method to fetch and display the user's first name
         fetchUserFirstName();
 
-        // Find buttons and set onClickListeners
-        Button button2 = view.findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CashInFragment cashInFragment = new CashInFragment();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, cashInFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+//        // Find buttons and set onClickListeners
+//        Button button2 = view.findViewById(R.id.button2);
+//        button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CashInFragment cashInFragment = new CashInFragment();
+//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                transaction.replace(R.id.frame_container, cashInFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//            }
+//        });
 
-        ImageView imageView = view.findViewById(R.id.imageView7);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DiscountFragment discountFragment = new DiscountFragment();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, discountFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+//        ImageView imageView = view.findViewById(R.id.imageView7);
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DiscountFragment discountFragment = new DiscountFragment();
+//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                transaction.replace(R.id.frame_container, discountFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//            }
+//        });
+//
+//        ImageView imageView8 = view.findViewById(R.id.imageView8);
+//        imageView8.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CheckSeatFragment checkseatFragment = new CheckSeatFragment();
+//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                transaction.replace(R.id.frame_container, checkseatFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//            }
+//        });
 
-        ImageView imageView8 = view.findViewById(R.id.imageView8);
-        imageView8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CheckSeatFragment checkseatFragment = new CheckSeatFragment();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, checkseatFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-        ImageView imageView9 = view.findViewById(R.id.imageView9);
-        imageView9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                QRFragment qrFragment = new QRFragment();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, qrFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+//        ImageView imageView9 = view.findViewById(R.id.imageView9);
+//        imageView9.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                QRFragment qrFragment = new QRFragment();
+//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                transaction.replace(R.id.frame_container, qrFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//            }
+//        });
 
         return view;
     }

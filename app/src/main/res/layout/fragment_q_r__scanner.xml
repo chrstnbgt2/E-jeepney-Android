@@ -67,7 +67,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@drawable/round_btn3"
-            android:text="@string/create_qr_code"
+            android:text="@string/qr_code_share"
             android:textColor="@color/white"
             android:textStyle="bold"
             tools:ignore="ButtonStyle" />
