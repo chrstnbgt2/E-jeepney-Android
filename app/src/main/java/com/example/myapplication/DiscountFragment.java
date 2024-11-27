@@ -100,20 +100,26 @@ public class DiscountFragment extends Fragment {
             popupMenu.show();
         });
 
-        // Find the imageView24
-        ImageView imageView24 = view.findViewById(R.id.imageView24);
+        // Find the imageView30
+        ImageView imageView30 = view.findViewById(R.id.imageView30);
 
-        // Set an OnClickListener on imageView24
-        imageView24.setOnClickListener(v -> {
-            // Create a new instance of DiscountFragment
-            DiscountFragment discountFragment = new DiscountFragment();
+        // Ensure the imageView30 is not null before setting an OnClickListener
+        if (imageView30 != null) {
+            // Set an OnClickListener on imageView30
+            imageView30.setOnClickListener(v -> {
+                // Create a new instance of HomeFragment
+                HomeFragment homeFragment = new HomeFragment();
 
-            // Replace the current fragment with DiscountFragment
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.frame_container, discountFragment);
-            transaction.addToBackStack(null);  // Optional: Adds the transaction to the back stack
-            transaction.commit();
-        });
+                // Replace the current fragment with HomeFragment
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_container, homeFragment); // Ensure R.id.frame_container is your fragment container
+                transaction.addToBackStack(null); // Optional: Adds the transaction to the back stack
+                transaction.commit();
+            });
+        } else {
+            // Log an error or show a toast if imageView30 is not found
+            Toast.makeText(getContext(), "ImageView not found", Toast.LENGTH_SHORT).show();
+        }
 
         // Set up the button to browse files
         Button browseFileButton = view.findViewById(R.id.browseFileButton);

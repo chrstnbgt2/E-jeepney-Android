@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,11 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
@@ -71,54 +65,19 @@ public class HomeFragment extends Fragment {
         // Call method to fetch and display the user's first name
         fetchUserFirstName();
 
-//        // Find buttons and set onClickListeners
-//        Button button2 = view.findViewById(R.id.button2);
-//        button2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                CashInFragment cashInFragment = new CashInFragment();
-//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//                transaction.replace(R.id.frame_container, cashInFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
-
-//        ImageView imageView = view.findViewById(R.id.imageView7);
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DiscountFragment discountFragment = new DiscountFragment();
-//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//                transaction.replace(R.id.frame_container, discountFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
-//
-//        ImageView imageView8 = view.findViewById(R.id.imageView8);
-//        imageView8.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                CheckSeatFragment checkseatFragment = new CheckSeatFragment();
-//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//                transaction.replace(R.id.frame_container, checkseatFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
-
-//        ImageView imageView9 = view.findViewById(R.id.imageView9);
-//        imageView9.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                QRFragment qrFragment = new QRFragment();
-//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//                transaction.replace(R.id.frame_container, qrFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
+        // Find button2 and set its onClickListener
+        Button button2 = view.findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to CashInFragment
+                CashInFragment cashInFragment = new CashInFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_container, cashInFragment); // Replace with the new fragment
+                transaction.addToBackStack(null); // Add this transaction to the back stack
+                transaction.commit(); // Commit the transaction
+            }
+        });
 
         return view;
     }

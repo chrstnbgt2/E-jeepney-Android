@@ -5,10 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +36,7 @@ public class QRFragment extends Fragment {
     // Firebase variables
     private FirebaseAuth mAuth;
     private TextView textViewFirstName; // TextView to display the first name
+    private ImageView imageView; // ImageView to trigger opening of MyQrFragment
 
     public QRFragment() {
         // Required empty public constructor
@@ -65,9 +68,18 @@ public class QRFragment extends Fragment {
 
         // Initialize TextView for displaying the first name
         textViewFirstName = view.findViewById(R.id.textViewFirstName); // Ensure this ID exists in your layout
+        imageView = view.findViewById(R.id.imageView24); // Initialize ImageView
 
         // Fetch and display the user's first name
         fetchUserFirstName();
+
+        // Set click listener for the ImageView to open the new fragment
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyQrFragment();
+            }
+        });
 
         return view;
     }
@@ -95,5 +107,16 @@ public class QRFragment extends Fragment {
         } else {
             Log.e("UserAuth", "No authenticated user found.");
         }
+    }
+
+    private void openMyQrFragment() {
+        // Create an instance of MyQrFragment
+        MyQrFragment myQrFragment = new MyQrFragment();
+
+        // Begin the fragment transaction to replace the current fragment
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, myQrFragment); // R.id.fragment_container should be the ID of your fragment container
+        transaction.addToBackStack(null);  // Adds to back stack to allow the user to go back
+        transaction.commit();
     }
 }

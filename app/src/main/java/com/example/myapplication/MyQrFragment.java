@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,11 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyQrFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MyQrFragment extends Fragment {
 
     // Firebase Auth and Database references
@@ -34,32 +31,8 @@ public class MyQrFragment extends Fragment {
     private TextView firstNameTextView;
     private TextView phoneNumberTextView;
 
-    // Fragment arguments
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
-
     public MyQrFragment() {
         // Required empty public constructor
-    }
-
-    public static MyQrFragment newInstance(String param1, String param2) {
-        MyQrFragment fragment = new MyQrFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -78,6 +51,22 @@ public class MyQrFragment extends Fragment {
 
         // Fetch and display user data from Firebase
         fetchUserData();
+
+        // Set up the button click listener for BtnQRShare
+        Button btnQRShare = view.findViewById(R.id.BtnQRShare);
+        btnQRShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open the QRFragment when the button is clicked
+                QRFragment qrFragment = new QRFragment();
+
+                // Begin the fragment transaction
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_container, qrFragment);  // Replace the container with QRFragment
+                transaction.addToBackStack(null);  // Optional: Add to back stack to allow back navigation
+                transaction.commit();
+            }
+        });
 
         return view;
     }
