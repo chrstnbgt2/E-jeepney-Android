@@ -250,10 +250,10 @@ public class MainActivity4 extends AppCompatActivity {
         Intent intent;
         switch (role) {
             case "Conductor":
-                intent = new Intent(MainActivity4.this, ConductorActivity.class);
+                intent = new Intent(MainActivity4.this, DriverActivity.class);
                 break;
             case "Driver":
-                intent = new Intent(MainActivity4.this, DriverActivity.class);
+                intent = new Intent(MainActivity4.this, ConductorActivity.class);
                 break;
             default:
                 intent = new Intent(MainActivity4.this, MainActivity5.class);
