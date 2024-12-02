@@ -8,11 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -78,6 +80,16 @@ public class QR_ScannerFragment extends Fragment {
             transaction.replace(R.id.frame_driver, driverHomeFragment);
             transaction.addToBackStack(null); // Optional: Adds the transaction to the back stack
             transaction.commit();
+        });
+        // Set up the QR share button
+        Button btnQRShare = view.findViewById(R.id.btn_QR_share);
+        btnQRShare.setOnClickListener(v -> {
+            // Replace the current fragment with QRFragment
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_driver, new Conductor_QR_ShareFragment());
+            fragmentTransaction.addToBackStack(null); // Add to back stack to allow navigation back
+            fragmentTransaction.commit();
         });
 
         return view;
