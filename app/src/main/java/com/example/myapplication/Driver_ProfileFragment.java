@@ -65,10 +65,10 @@ public class Driver_ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_driver__profile, container, false);
 
-        // Find the button by its ID
-        Button button = view.findViewById(R.id.button);
+        // Find the button by its correct ID
+        Button button = view.findViewById(R.id.BTnOut);
 
-        // Find the ProgressBar by its ID
+        // Find the ProgressBar by its correct ID
         progressBar = view.findViewById(R.id.progressBar);
 
         // Set an OnClickListener on the button
@@ -89,7 +89,7 @@ public class Driver_ProfileFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
                     }
-                }, 4000); // Delay of 2 seconds
+                }, 4000); // Delay of 4 seconds
             }
         });
 

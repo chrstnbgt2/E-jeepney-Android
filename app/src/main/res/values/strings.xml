@@ -107,6 +107,8 @@
     <string name="sign_in">Sign In</string>
     <string name="fare_rate">Fare Rate</string>
     <string name="distance_travelled">Distance Travelled</string>
+    <string name="mobile_no">Mobile No.:</string>
+    <string name="_09xxxxxxxxx">09XXXXXXXXX</string>
     <string-array name="user_roles">
         <item>Passenger</item>
         <item>Conductor</item>

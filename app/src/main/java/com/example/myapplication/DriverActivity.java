@@ -33,7 +33,7 @@ public class DriverActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.nav_tracker3) {
                 replaceFragment(new TrackerFragment());
             } else if (item.getItemId() == R.id.nav_QrCode3) {
-                replaceFragment(new MyQrFragment());
+                replaceFragment(new QR_ScannerFragment());
             } else if (item.getItemId() == R.id.nav_history3) {
                 replaceFragment(new HistoryFragment());
             } else if (item.getItemId() == R.id.nav_profile3) {

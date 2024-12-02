@@ -174,7 +174,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/BTnOut"
         android:layout_width="236dp"
         android:layout_height="36dp"
         android:layout_marginStart="60dp"

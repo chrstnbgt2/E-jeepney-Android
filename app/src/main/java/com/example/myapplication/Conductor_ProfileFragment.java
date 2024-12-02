@@ -3,10 +3,14 @@ package com.example.myapplication;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,6 +62,35 @@ public class Conductor_ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_conductor__profile, container, false);
+
+        // Get reference to the ProgressBar
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
+
+        // Initially hide the ProgressBar
+        progressBar.setVisibility(View.GONE);
+
+        // Get reference to the Button
+        Button button10 = view.findViewById(R.id.button10);
+
+        // Set OnClickListener to the Button
+        button10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the ProgressBar
+                progressBar.setVisibility(View.VISIBLE);
+
+                // Use Handler to introduce a delay of 4 seconds
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Hide the ProgressBar after 4 seconds
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }, 4000); // 4 seconds delay
+            }
+        });
+
+        // Other existing code...
 
         // Get reference to LinearLayout (linear1)
         LinearLayout myConductorLayout1 = view.findViewById(R.id.linear1);
