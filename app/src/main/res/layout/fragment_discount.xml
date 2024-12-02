@@ -101,12 +101,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:textColorHint="#6F6E6E"
-                        android:hint="@string/last_name"
-                        android:textSize="15sp"
                         android:background="@drawable/round_edit_txt"
+                        android:hint="@string/last_name"
                         android:paddingStart="20dp"
                         android:textColor="@color/black"
+                        android:textColorHint="#6F6E6E"
+                        android:textSize="15sp"
                         tools:ignore="Autofill,RtlSymmetry,TextFields" />
                 </LinearLayout>
 

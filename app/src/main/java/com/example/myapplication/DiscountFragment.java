@@ -1,6 +1,8 @@
+// Inside your DiscountFragment.java file
 package com.example.myapplication;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -10,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -23,146 +27,210 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 public class DiscountFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static final int REQUEST_CODE = 1; // Request code for file picker
-    private String mParam1;
-    private String mParam2;
+    private static final int REQUEST_CODE = 1;
+    private ActivityResultLauncher<Intent> filePickerLauncher;
+    private TextView uploadFileTxt;
+    private EditText discountFname, discountMname, discountLname, discountBday, discountAdd, discountCity, discountProv, postalId, discountEmail, discountNum;
+    private TextView genderTextView;
 
-    private ActivityResultLauncher<Intent> filePickerLauncher; // For file picker
-    private TextView uploadFileTxt; // TextView to display selected file name
+    private DatabaseReference databaseReference;
+    private Uri fileUri;
 
     public DiscountFragment() {
         // Required empty public constructor
     }
 
-    public static DiscountFragment newInstance(String param1, String param2) {
-        DiscountFragment fragment = new DiscountFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
-        // Initialize the ActivityResultLauncher for file picker
         filePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == getActivity().RESULT_OK && result.getData() != null) {
-                        Uri uri = result.getData().getData();
-                        // Handle the file selected by the user
-                        String fileName = uri.getLastPathSegment(); // Get the file name
-                        uploadFileTxt.setText(fileName); // Display the file name in the TextView
+                        fileUri = result.getData().getData();
+                        String fileName = fileUri.getLastPathSegment();
+                        uploadFileTxt.setText(fileName);
                         Toast.makeText(getContext(), "File selected: " + fileName, Toast.LENGTH_SHORT).show();
                     }
                 }
         );
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discount, container, false);
 
-        // Initialize the TextView for displaying selected file name
-        uploadFileTxt = view.findViewById(R.id.uploadFileTxt); // Reference to the TextView
+        uploadFileTxt = view.findViewById(R.id.uploadFileTxt);
+        discountFname = view.findViewById(R.id.discount_fname);
+        discountMname = view.findViewById(R.id.discount_mname);
+        discountLname = view.findViewById(R.id.discount_lname);
+        discountBday = view.findViewById(R.id.discount_bday);
+        discountAdd = view.findViewById(R.id.discount_add);
+        discountCity = view.findViewById(R.id.discount_city);
+        discountProv = view.findViewById(R.id.discount_prov);
+        postalId = view.findViewById(R.id.postal_id);
+        discountEmail = view.findViewById(R.id.discount_email);
+        discountNum = view.findViewById(R.id.discount_num);
+        genderTextView = view.findViewById(R.id.gender_text_view);
 
-        // Initialize the TextView for gender selection
-        TextView genderTextView = view.findViewById(R.id.gender_text_view);
-
-        // Set up the click listener for the TextView
         genderTextView.setOnClickListener(v -> {
-            // Create a PopupMenu
             PopupMenu popupMenu = new PopupMenu(getContext(), genderTextView);
             popupMenu.getMenuInflater().inflate(R.menu.gender_menu, popupMenu.getMenu());
-
-            // Set a click listener for the menu items
             popupMenu.setOnMenuItemClickListener(item -> {
                 String selectedGender = item.getTitle().toString();
-                genderTextView.setText(selectedGender); // Update the TextView with selected gender
-                Toast.makeText(getContext(), "Selected Gender: " + selectedGender, Toast.LENGTH_SHORT).show(); // Optional
+                genderTextView.setText(selectedGender);
+                Toast.makeText(getContext(), "Selected Gender: " + selectedGender, Toast.LENGTH_SHORT).show();
                 return true;
             });
-
-            // Show the PopupMenu
             popupMenu.show();
         });
 
-        // Find the imageView30
-        ImageView imageView30 = view.findViewById(R.id.imageView30);
+        discountBday.setOnClickListener(v -> showDatePickerDialog());
 
-        // Ensure the imageView30 is not null before setting an OnClickListener
-        if (imageView30 != null) {
-            // Set an OnClickListener on imageView30
-            imageView30.setOnClickListener(v -> {
-                // Create a new instance of HomeFragment
-                HomeFragment homeFragment = new HomeFragment();
-
-                // Replace the current fragment with HomeFragment
-                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, homeFragment); // Ensure R.id.frame_container is your fragment container
-                transaction.addToBackStack(null); // Optional: Adds the transaction to the back stack
-                transaction.commit();
-            });
-        } else {
-            // Log an error or show a toast if imageView30 is not found
-            Toast.makeText(getContext(), "ImageView not found", Toast.LENGTH_SHORT).show();
-        }
-
-        // Set up the button to browse files
         Button browseFileButton = view.findViewById(R.id.browseFileButton);
         browseFileButton.setOnClickListener(v -> {
-            // Check for permission for Android 13 and above
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_MEDIA_IMAGES)
                         != PackageManager.PERMISSION_GRANTED) {
-                    // Request permission
                     ActivityCompat.requestPermissions(getActivity(),
                             new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_CODE);
                 } else {
-                    // Permission already granted, open file picker
                     openFilePicker();
                 }
             } else {
-                // No permission required for PDFs, just open the file picker
                 openFilePicker();
             }
         });
+
+        Button saveButton = view.findViewById(R.id.discount_submit);
+        saveButton.setOnClickListener(v -> saveDiscountDetails());
 
         return view;
     }
 
-    // Method to open the file picker
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(),
+                (DatePicker view, int selectedYear, int selectedMonth, int selectedDay) ->
+                        discountBday.setText(selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear),
+                year, month, day
+        );
+        datePickerDialog.show();
+    }
+
     private void openFilePicker() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*"); // This allows selecting all file types
-        intent.addCategory(Intent.CATEGORY_OPENABLE); // To ensure only openable files are shown
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         filePickerLauncher.launch(Intent.createChooser(intent, "Select a file"));
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, open file picker
-                openFilePicker();
-            } else {
-                // Handle the case where permission is denied
-                Toast.makeText(getContext(), "Permission denied!", Toast.LENGTH_SHORT).show();
-            }
+    private void saveDiscountDetails() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        if (validateFields()) {
+            databaseReference.child("users").child("passenger").child(uid).child("discount_details")
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().exists()) {
+                                Toast.makeText(getContext(), "You have already applied for the discount.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                uploadFileAndSaveDetails(uid);
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "Error checking application status.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
+    }
+
+    private boolean validateFields() {
+        if (discountFname.getText().toString().isEmpty() ||
+                discountLname.getText().toString().isEmpty() ||
+                discountBday.getText().toString().isEmpty() ||
+                discountEmail.getText().toString().isEmpty() ||
+                discountNum.getText().toString().isEmpty() ||
+                genderTextView.getText().toString().equals("Select Gender") ||
+                fileUri == null) {
+            Toast.makeText(getContext(), "Please fill out all fields and select a file.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void uploadFileAndSaveDetails(String uid) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReference()
+                .child("discount_profile")
+                .child(uid + "_" + System.currentTimeMillis());
+
+        storageReference.putFile(fileUri)
+                .addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> saveNewDiscountDetails(uid, uri.toString())))
+                .addOnFailureListener(e -> Toast.makeText(getContext(), "File upload failed.", Toast.LENGTH_SHORT).show());
+    }
+
+    private void saveNewDiscountDetails(String uid, String fileUrl) {
+        Map<String, Object> discountDetails = new HashMap<>();
+        discountDetails.put("firstname", discountFname.getText().toString());
+        discountDetails.put("middlename", discountMname.getText().toString());
+        discountDetails.put("lastname", discountLname.getText().toString());
+        discountDetails.put("birthday", discountBday.getText().toString());
+        discountDetails.put("address", discountAdd.getText().toString());
+        discountDetails.put("city", discountCity.getText().toString());
+        discountDetails.put("province", discountProv.getText().toString());
+        discountDetails.put("postal_id", postalId.getText().toString());
+        discountDetails.put("email", discountEmail.getText().toString());
+        discountDetails.put("contact_number", discountNum.getText().toString());
+        discountDetails.put("gender", genderTextView.getText().toString());
+        discountDetails.put("file_url", fileUrl);
+
+        databaseReference.child("users").child("passenger").child(uid).child("discount_details")
+                .setValue(discountDetails)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(), "Discount details saved successfully", Toast.LENGTH_SHORT).show();
+                        clearAllFields();
+                    } else {
+                        Toast.makeText(getContext(), "Failed to save discount details", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void clearAllFields() {
+        discountFname.setText("");
+        discountMname.setText("");
+        discountLname.setText("");
+        discountBday.setText("");
+        discountAdd.setText("");
+        discountCity.setText("");
+        discountProv.setText("");
+        postalId.setText("");
+        discountEmail.setText("");
+        discountNum.setText("");
+        genderTextView.setText("Select Gender");
+        uploadFileTxt.setText("No file selected");
+        fileUri = null;
     }
 }
