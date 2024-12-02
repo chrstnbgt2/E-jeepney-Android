@@ -69,18 +69,20 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/discount_fname"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:paddingStart="20dp"
-                        android:textSize="15sp"
-                        android:textColorHint="#6F6E6E"
-                        android:hint="@string/first_name"
                         android:background="@drawable/round_edit_txt"
+                        android:hint="@string/first_name"
+                        android:paddingStart="20dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#6F6E6E"
+                        android:textSize="15sp"
                         tools:ignore="Autofill,RtlSymmetry,TextFields" />
 
                     <EditText
+                        android:id="@+id/discount_mname"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -94,6 +96,7 @@
                         tools:ignore="Autofill,RtlSymmetry,TextFields" />
 
                     <EditText
+                        android:id="@+id/discount_lname"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -131,6 +134,7 @@
                         tools:ignore="RtlSymmetry,UseCompatTextViewDrawableXml" />
 
                     <EditText
+                        android:id="@+id/discount_bday"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -155,6 +159,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/discount_add"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -167,6 +172,7 @@
                         tools:ignore="Autofill,RtlSymmetry,TextFields" />
 
                     <EditText
+                        android:id="@+id/discount_city"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -188,6 +194,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/discount_prov"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -200,6 +207,7 @@
                         tools:ignore="Autofill,RtlSymmetry,TextFields" />
 
                     <EditText
+                        android:id="@+id/postal_id"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -221,6 +229,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/discount_email"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -234,6 +243,7 @@
                         tools:ignore="Autofill,RtlSymmetry" />
 
                     <EditText
+                        android:id="@+id/discount_num"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -284,6 +294,7 @@
 
                 <!-- Submit Button -->
                 <Button
+                    android:id="@+id/discount_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
