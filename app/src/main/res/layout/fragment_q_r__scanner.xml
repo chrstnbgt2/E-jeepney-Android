@@ -7,7 +7,7 @@
     android:background="#F4F4F4"
     tools:context=".QR_ScannerFragment">
 
-
+    <!-- Back Icon -->
     <ImageView
         android:id="@+id/imageView24"
         android:layout_width="51dp"
@@ -16,6 +16,7 @@
         android:src="@drawable/ic_backl"
         tools:ignore="ContentDescription" />
 
+    <!-- QR Scanner Title -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,33 +26,27 @@
         android:textColor="@color/black"
         android:textSize="24sp" />
 
-    <View
-        android:id="@+id/view5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="130dp"/>
-
+    <!-- Instruction Text -->
     <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/scan_passenger_qr_code"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="14dp"
+        android:text="@string/scan_passenger_qr_code"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/imageView31"
-        android:layout_width="302dp"
-        android:layout_height="359dp"
-        android:layout_gravity="center"
-        android:src="@drawable/qr_scanner"
-        tools:ignore="ContentDescription" />
+    <!-- Camera View (QR Scanner) -->
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/cameraView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp" />
 
-    <!-- Buttons -->
+    <!-- Buttons Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +67,7 @@
             android:textStyle="bold"
             tools:ignore="ButtonStyle" />
 
-        <!-- Delete Account Button -->
+        <!-- Upload QR Code Button -->
         <Button
             android:id="@+id/btn_delete_account"
             android:layout_width="0dp"
