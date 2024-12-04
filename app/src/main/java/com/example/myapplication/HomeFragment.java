@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,15 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HomeFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     // Firebase variables
     private FirebaseAuth mAuth;
-    private TextView textView8;
+    private TextView textView8; // To display the first name
 
     public HomeFragment() {
         // Required empty public constructor
@@ -39,8 +34,8 @@ public class HomeFragment extends Fragment {
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("param1", param1);
+        args.putString("param2", param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,10 +43,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
     }
 
@@ -59,51 +50,62 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Initialize TextView for displaying the first name
+        // Initialize the TextView for displaying the user's first name
         textView8 = view.findViewById(R.id.textView8);
 
-        // Call method to fetch and display the user's first name
+        // Fetch and display the user's first name
         fetchUserFirstName();
 
-        // Find button2 and set its onClickListener
+        // Button navigation setup
         Button button2 = view.findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to CashInFragment
-                CashInFragment cashInFragment = new CashInFragment();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, cashInFragment); // Replace with the new fragment
-                transaction.addToBackStack(null); // Add this transaction to the back stack
-                transaction.commit(); // Commit the transaction
-            }
+        button2.setOnClickListener(v -> {
+            // Navigate to CashInFragment
+            CashInFragment cashInFragment = new CashInFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_container, cashInFragment); // Replace with the new fragment
+            transaction.addToBackStack(null); // Add to back stack
+            transaction.commit(); // Commit the transaction
         });
 
         return view;
     }
 
+    /**
+     * Fetch and display the first name of the current user from Firebase Realtime Database.
+     */
+    @SuppressLint("SetTextI18n")
     private void fetchUserFirstName() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
-            usersRef.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            String uid = currentUser.getUid();
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users/passenger");
+
+            usersRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         String firstName = dataSnapshot.child("firstName").getValue(String.class);
-                        textView8.setText(firstName); // Set the first name to TextView8
+                        if (firstName != null) {
+                            textView8.setText(firstName); // Set the first name to the TextView
+                        } else {
+                            Log.e("UserData", "First name not found.");
+                            textView8.setText("Name not available"); // Fallback text
+                        }
                     } else {
-                        Log.e("UserData", "User data not found.");
+                        Log.e("UserData", "User data not found at users/passenger/" + uid);
+                        textView8.setText("Data not found"); // Fallback text
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
+                    textView8.setText("Error fetching name"); // Fallback text
                 }
             });
         } else {
             Log.e("UserAuth", "No authenticated user found.");
+            textView8.setText("No user logged in"); // Fallback text
         }
     }
 }

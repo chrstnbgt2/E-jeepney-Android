@@ -205,6 +205,7 @@ public class DiscountFragment extends Fragment {
         discountDetails.put("contact_number", discountNum.getText().toString());
         discountDetails.put("gender", genderTextView.getText().toString());
         discountDetails.put("file_url", fileUrl);
+        discountDetails.put("status", "pending");
 
         databaseReference.child("users").child("passenger").child(uid).child("discount_details")
                 .setValue(discountDetails)
@@ -217,6 +218,7 @@ public class DiscountFragment extends Fragment {
                     }
                 });
     }
+
 
     private void clearAllFields() {
         discountFname.setText("");

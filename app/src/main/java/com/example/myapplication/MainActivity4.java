@@ -6,11 +6,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView; // Import for TextView
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,9 +24,7 @@ import com.google.firebase.storage.UploadTask;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity4 extends AppCompatActivity {
@@ -36,8 +32,7 @@ public class MainActivity4 extends AppCompatActivity {
     private EditText phoneNumberEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
-    private Spinner roleSpinner;
-    private TextView textView7; // Declare the TextView
+    private TextView textView7;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
@@ -58,22 +53,8 @@ public class MainActivity4 extends AppCompatActivity {
         phoneNumberEditText = findViewById(R.id.phoneNumber);
         emailEditText = findViewById(R.id.Email2);
         passwordEditText = findViewById(R.id.person3);
-        roleSpinner = findViewById(R.id.roleSpinner);
         Button registerButton = findViewById(R.id.button5);
-        textView7 = findViewById(R.id.textView7); // Initialize textView7
-
-        // Create a list of roles
-        List<String> roles = new ArrayList<>();
-        roles.add("Select Role");
-        roles.add("Passenger");
-        roles.add("Conductor");
-        roles.add("Driver");
-
-        // Set up the ArrayAdapter for the Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.custom_spinner_item, roles);
-        adapter.setDropDownViewResource(R.layout.custom_spinner_item);
-        roleSpinner.setAdapter(adapter);
-        roleSpinner.setSelection(0);
+        textView7 = findViewById(R.id.textView7);
 
         // Retrieve intent extras
         Intent intent = getIntent();
@@ -85,13 +66,9 @@ public class MainActivity4 extends AppCompatActivity {
         registerButton.setOnClickListener(v -> registerUser(firstName, middleName, lastName));
 
         // Set click listener for textView7
-        textView7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an Intent to start MainActivity2
-                Intent intent = new Intent(MainActivity4.this, MainActivity2.class);
-                startActivity(intent);
-            }
+        textView7.setOnClickListener(v -> {
+            Intent mainActivityIntent = new Intent(MainActivity4.this, MainActivity2.class);
+            startActivity(mainActivityIntent);
         });
     }
 
@@ -99,17 +76,10 @@ public class MainActivity4 extends AppCompatActivity {
         String phoneNumber = phoneNumberEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-        String role = roleSpinner.getSelectedItem().toString();
 
         // Validate input fields
         if (phoneNumber.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(MainActivity4.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Validate role selection
-        if (role.equals("Select Role")) {
-            Toast.makeText(MainActivity4.this, "Please select a valid role", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -125,7 +95,7 @@ public class MainActivity4 extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            generateAndUploadQRCode(user.getUid(), role, firstName, middleName, lastName, phoneNumber, email);
+                            generateAndUploadQRCode(user.getUid(), firstName, middleName, lastName, phoneNumber, email);
                         }
                     } else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
@@ -138,127 +108,80 @@ public class MainActivity4 extends AppCompatActivity {
                 });
     }
 
-    private void generateAndUploadQRCode(String uid, String role, String firstName, String middleName, String lastName, String phoneNumber, String email) {
+    private void generateAndUploadQRCode(String uid, String firstName, String middleName, String lastName, String phoneNumber, String email) {
         try {
-            // QR Code data: including phone number and email for better identification
-            String qrData = "UID: " + uid + "\nName: " + firstName + " " + middleName + " " + lastName + "\nRole: " + role + "\nPhone: " + phoneNumber + "\nEmail: " + email;
+            // QR Code data
+            String qrData = "UID: " + uid + "\nName: " + firstName + " " + middleName + " " + lastName + "\nPhone: " + phoneNumber + "\nEmail: " + email;
 
-            // Generate the QR code using ZXing
+            // Generate the QR code
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.encodeBitmap(qrData, com.google.zxing.BarcodeFormat.QR_CODE, 400, 400);
 
-            // Check if bitmap generation was successful
             if (bitmap == null) {
                 Log.e("QRCodeError", "Bitmap is null after QR code generation");
                 Toast.makeText(MainActivity4.this, "Error generating QR code.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Convert bitmap to byte array for upload
+            // Convert bitmap to byte array
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] data = baos.toByteArray();
 
-            // Firebase Storage reference for storing the QR code image
-            StorageReference qrCodeRef = firebaseStorage.getReference().child("qrcodes/" + uid + ".png");
+            // Firebase Storage path for the QR code
+            StorageReference qrCodeRef = firebaseStorage.getReference()
+                    .child("qrcodes/passenger/" + uid + "/acc_qr/qr.png");
 
-            // Upload QR code to Firebase Storage
-            UploadTask uploadTask = qrCodeRef.putBytes(data);
-            uploadTask.addOnSuccessListener(taskSnapshot -> qrCodeRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                if (uri != null) {
-                    saveUserToDatabase(uid, role, firstName, middleName, lastName, phoneNumber, email, uri.toString());
-                } else {
-                    Log.e("QRCodeError", "QR Code download URL is null");
-                    Toast.makeText(MainActivity4.this, "Failed to get QR code URL.", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(e -> {
-                Log.e("QRCodeError", "Failed to get download URL", e);
-                Toast.makeText(MainActivity4.this, "Failed to get QR code URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            })).addOnFailureListener(e -> {
-                Log.e("StorageError", "QR Code upload failed", e);
-                Toast.makeText(MainActivity4.this, "QR Code upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            });
-
+            // Upload the QR code to Firebase Storage
+            qrCodeRef.putBytes(data)
+                    .addOnSuccessListener(taskSnapshot -> qrCodeRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        if (uri != null) {
+                            saveUserToDatabase(uid, firstName, middleName, lastName, phoneNumber, email, uri.toString());
+                        } else {
+                            Log.e("QRCodeError", "QR Code download URL is null");
+                            Toast.makeText(MainActivity4.this, "Failed to get QR code URL.", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(e -> {
+                        Log.e("QRCodeError", "Failed to get download URL", e);
+                        Toast.makeText(MainActivity4.this, "Failed to get QR code URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }))
+                    .addOnFailureListener(e -> {
+                        Log.e("StorageError", "QR Code upload failed", e);
+                        Toast.makeText(MainActivity4.this, "QR Code upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         } catch (Exception e) {
             Log.e("QRCodeError", "Error generating QR Code", e);
             Toast.makeText(MainActivity4.this, "Error generating QR Code", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void saveUserToDatabase(String uid, String role, String firstName, String middleName, String lastName, String phoneNumber, String email, String qrCodeUrl) {
-        // Create a Map for user details
+
+    private void saveUserToDatabase(String uid, String firstName, String middleName, String lastName, String phoneNumber, String email, String qrCodeUrl) {
         Map<String, Object> userDetails = new HashMap<>();
         userDetails.put("firstName", firstName);
         userDetails.put("middleName", middleName);
         userDetails.put("lastName", lastName);
         userDetails.put("phoneNumber", phoneNumber);
         userDetails.put("email", email);
-        userDetails.put("role", role);
         userDetails.put("qr", qrCodeUrl);
-        userDetails.put("wallet_balance", 0); // Default wallet balance
-        userDetails.put("transaction", null); // Placeholder for future transactions
+        userDetails.put("wallet_balance", 0);
+        userDetails.put("role", "passenger");
+        userDetails.put("transaction", null);
 
-        // Depending on the role, save under the appropriate node
-        switch (role) {
-            case "Passenger":
-                databaseReference.child("passenger").child(uid).setValue(userDetails)
-                        .addOnSuccessListener(aVoid -> {
-                            Log.d("DatabaseSuccess", "Passenger saved successfully");
-                            Toast.makeText(MainActivity4.this, "Passenger registered successfully", Toast.LENGTH_SHORT).show();
-                            navigateToNextActivity(role);
-                        })
-                        .addOnFailureListener(e -> {
-                            Log.e("DatabaseError", "Failed to save passenger to Firebase Database", e);
-                            Toast.makeText(MainActivity4.this, "Failed to save passenger: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-                break;
-
-            case "Conductor":
-                databaseReference.child("conductor").child(uid).setValue(userDetails)
-                        .addOnSuccessListener(aVoid -> {
-                            Log.d("DatabaseSuccess", "Conductor saved successfully");
-                            Toast.makeText(MainActivity4.this, "Conductor registered successfully", Toast.LENGTH_SHORT).show();
-                            navigateToNextActivity(role);
-                        })
-                        .addOnFailureListener(e -> {
-                            Log.e("DatabaseError", "Failed to save conductor to Firebase Database", e);
-                            Toast.makeText(MainActivity4.this, "Failed to save conductor: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-                break;
-
-            case "Driver":
-                databaseReference.child("driver").child(uid).setValue(userDetails)
-                        .addOnSuccessListener(aVoid -> {
-                            Log.d("DatabaseSuccess", "Driver saved successfully");
-                            Toast.makeText(MainActivity4.this, "Driver registered successfully", Toast.LENGTH_SHORT).show();
-                            navigateToNextActivity(role);
-                        })
-                        .addOnFailureListener(e -> {
-                            Log.e("DatabaseError", "Failed to save driver to Firebase Database", e);
-                            Toast.makeText(MainActivity4.this, "Failed to save driver: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-                break;
-
-            default:
-                Log.e("RoleError", "Unknown role selected");
-                Toast.makeText(MainActivity4.this, "Unknown role selected", Toast.LENGTH_SHORT).show();
-                break;
-        }
+        databaseReference.child("passenger").child(uid).setValue(userDetails)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("DatabaseSuccess", "Passenger saved successfully");
+                    Toast.makeText(MainActivity4.this, "Passenger registered successfully", Toast.LENGTH_SHORT).show();
+                    navigateToNextActivity();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("DatabaseError", "Failed to save passenger to Firebase Database", e);
+                    Toast.makeText(MainActivity4.this, "Failed to save passenger: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
-    private void navigateToNextActivity(String role) {
-        Intent intent;
-        switch (role) {
-            case "Conductor":
-                intent = new Intent(MainActivity4.this, DriverActivity.class);
-                break;
-            case "Driver":
-                intent = new Intent(MainActivity4.this, ConductorActivity.class);
-                break;
-            default:
-                intent = new Intent(MainActivity4.this, MainActivity5.class);
-                break;
-        }
+    private void navigateToNextActivity() {
+        Intent intent = new Intent(MainActivity4.this, MainActivity5.class);
         startActivity(intent);
         finish();
     }

@@ -26,8 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
-
 public class MainActivity2 extends AppCompatActivity {
 
     private EditText emailAddress;
@@ -60,7 +58,7 @@ public class MainActivity2 extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         Button login = findViewById(R.id.LogInButton);
 
-          // Initialize the TextView and set OnClickListener
+        // Initialize the TextView and set OnClickListener
         TextView textView5 = findViewById(R.id.textView5);
         textView5.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity2.this, MainActivity3.class);
@@ -120,7 +118,7 @@ public class MainActivity2 extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
                                 Log.d("LoginSuccess", "User logged in successfully: " + user.getUid());
-                                fetchUserRoleAndNavigate(user.getUid());
+                                fetchUserRoleAndNavigate(user.getEmail());
                             }
                         } else {
                             // Login failed, display error message
@@ -133,56 +131,48 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     /**
-     * Fetch the user's role from the database using their UID and navigate accordingly.
+     * Fetch the user's role from the database using their email and navigate accordingly.
      *
-     * @param uid The unique identifier of the user.
+     * @param email The email of the user.
      */
-    private void fetchUserRoleAndNavigate(String uid) {
-        // Check in each role node sequentially to find the user
-        usersRef.child("passenger").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void fetchUserRoleAndNavigate(String email) {
+        searchUserRole(email, "driver", role -> {
+            if (role != null) {
+                navigateToNextActivity(role);
+            } else {
+                searchUserRole(email, "conductor", role2 -> {
+                    if (role2 != null) {
+                        navigateToNextActivity(role2);
+                    } else {
+                        searchUserRole(email, "passenger", role3 -> {
+                            if (role3 != null) {
+                                navigateToNextActivity(role3);
+                            } else {
+                                Log.e("UserRole", "User role not found.");
+                                Toast.makeText(MainActivity2.this, "User role not found.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Search for the user's role in the specified node.
+     *
+     * @param email  The email of the user.
+     * @param role   The role node to search in.
+     * @param callback The callback to return the result.
+     */
+    private void searchUserRole(String email, String role, UserRoleCallback callback) {
+        usersRef.child(role).orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // User is a Passenger
-                    navigateToNextActivity("Passenger");
+                    callback.onRoleFound(role);
                 } else {
-                    // Check if user is a Conductor
-                    usersRef.child("conductor").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                // User is a Conductor
-                                navigateToNextActivity("Conductor");
-                            } else {
-                                // Check if user is a Driver
-                                usersRef.child("driver").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.exists()) {
-                                            // User is a Driver
-                                            navigateToNextActivity("Driver");
-                                        } else {
-                                            // User role not found
-                                            Log.e("UserRole", "User role not found.");
-                                            Toast.makeText(MainActivity2.this, "User role not found.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
-                                        Toast.makeText(MainActivity2.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
-                            Toast.makeText(MainActivity2.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    callback.onRoleFound(null);
                 }
             }
 
@@ -197,23 +187,35 @@ public class MainActivity2 extends AppCompatActivity {
     /**
      * Navigate to the appropriate activity based on the user's role.
      *
-     * @param role The role of the user (Passenger, Conductor, Driver).
+     * @param role The role of the user (passenger, conductor, driver).
      */
     private void navigateToNextActivity(String role) {
         Intent intent;
-        switch (role) {
-            case "Conductor":
+        switch (role.toLowerCase()) {
+            case "conductor":
                 intent = new Intent(MainActivity2.this, DriverActivity.class);
                 break;
-            case "Driver":
+            case "driver":
                 intent = new Intent(MainActivity2.this, ConductorActivity.class);
                 break;
-            case "Passenger":
+            case "passenger":
             default:
                 intent = new Intent(MainActivity2.this, MainActivity5.class);
                 break;
         }
-        startActivity(intent);
-        finish();
+        try {
+            startActivity(intent);
+            finish();
+        } catch (Exception e) {
+            Log.e("NavigationError", "Error navigating to the next activity: " + e.getMessage());
+            Toast.makeText(MainActivity2.this, "Error navigating to the next activity.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Callback interface for user role search.
+     */
+    private interface UserRoleCallback {
+        void onRoleFound(String role);
     }
 }

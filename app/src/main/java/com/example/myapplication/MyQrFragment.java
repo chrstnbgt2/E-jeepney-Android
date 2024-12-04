@@ -27,9 +27,10 @@ public class MyQrFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
-    // TextViews for displaying firstName and phoneNumber
-    private TextView firstNameTextView;
-    private TextView phoneNumberTextView;
+    // TextViews for displaying user data
+    private TextView viewFirstNameOnly; // First Name only
+    private TextView viewFullName; // Concatenated First Name and Last Name
+    private TextView phoneNumberTextView; // Phone Number
 
     public MyQrFragment() {
         // Required empty public constructor
@@ -43,70 +44,96 @@ public class MyQrFragment extends Fragment {
 
         // Initialize Firebase Auth and Database reference
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        mDatabase = FirebaseDatabase.getInstance().getReference("users/passenger"); // Targeting the passenger node
 
-        // Initialize TextViews for firstName and phoneNumber
-        firstNameTextView = view.findViewById(R.id.textViewFirstName);
-        phoneNumberTextView = view.findViewById(R.id.textViewPhoneNumber);
+        // Initialize TextViews for user data
+        viewFirstNameOnly = view.findViewById(R.id.textViewUsername2); // First Name only
+        viewFullName = view.findViewById(R.id.textViewFirstName); // Concatenated First and Last Name
+        phoneNumberTextView = view.findViewById(R.id.textViewPhoneNumber); // Phone Number
 
         // Fetch and display user data from Firebase
         fetchUserData();
 
         // Set up the button click listener for BtnQRShare
         Button btnQRShare = view.findViewById(R.id.BtnQRShare);
-        btnQRShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open the QRFragment when the button is clicked
-                QRFragment qrFragment = new QRFragment();
+        btnQRShare.setOnClickListener(v -> {
+            // Open the QRFragment when the button is clicked
+            QRFragment qrFragment = new QRFragment();
 
-                // Begin the fragment transaction
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, qrFragment);  // Replace the container with QRFragment
-                transaction.addToBackStack(null);  // Optional: Add to back stack to allow back navigation
-                transaction.commit();
-            }
+            // Begin the fragment transaction
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_container, qrFragment); // Replace the container with QRFragment
+            transaction.addToBackStack(null); // Add to back stack to allow navigation back
+            transaction.commit(); // Commit the transaction
         });
 
         return view;
     }
 
+    /**
+     * Fetch user data (firstName, lastName, phoneNumber) from Firebase Realtime Database.
+     */
+    @SuppressLint("SetTextI18n")
     private void fetchUserData() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            mDatabase.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            String uid = currentUser.getUid();
+            mDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        // Retrieve firstName and phoneNumber
+                        // Retrieve user details
                         String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                        String lastName = dataSnapshot.child("lastName").getValue(String.class);
                         String phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
 
-                        // Set the retrieved values to the TextViews
+                        // Display First Name only
                         if (firstName != null) {
-                            firstNameTextView.setText(firstName);
+                            viewFirstNameOnly.setText(firstName);
                         } else {
-                            firstNameTextView.setText("First name not found");
+                            viewFirstNameOnly.setText("First name not available");
                         }
 
+                        // Display concatenated First Name and Last Name
+                        if (firstName != null && lastName != null) {
+                            viewFullName.setText(firstName + " " + lastName);
+                        } else if (firstName != null) {
+                            viewFullName.setText(firstName);
+                        } else if (lastName != null) {
+                            viewFullName.setText(lastName);
+                        } else {
+                            viewFullName.setText("Name not available");
+                        }
+
+                        // Display Phone Number
                         if (phoneNumber != null) {
                             phoneNumberTextView.setText(phoneNumber);
                         } else {
-                            phoneNumberTextView.setText("Phone number not found");
+                            phoneNumberTextView.setText("Phone number not available");
                         }
                     } else {
-                        Log.e("UserData", "User data not found.");
+                        Log.e("UserData", "User data not found at users/passenger/" + uid);
+                        viewFirstNameOnly.setText("Data not found");
+                        viewFullName.setText("Data not found");
+                        phoneNumberTextView.setText("");
                     }
                 }
 
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
+                    viewFirstNameOnly.setText("Error fetching data");
+                    viewFullName.setText("Error fetching data");
+                    phoneNumberTextView.setText("");
                 }
             });
         } else {
             Log.e("UserAuth", "No authenticated user found.");
+            viewFirstNameOnly.setText("No user logged in");
+            viewFullName.setText("No user logged in");
+            phoneNumberTextView.setText("");
         }
     }
 }
