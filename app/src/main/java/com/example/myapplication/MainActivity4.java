@@ -14,13 +14,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.ByteArrayOutputStream;
@@ -83,106 +80,101 @@ public class MainActivity4 extends AppCompatActivity {
             return;
         }
 
-        // Validate password length
         if (password.length() < 6) {
             Toast.makeText(MainActivity4.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Register user with Firebase Authentication
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null) {
-                            generateAndUploadQRCode(user.getUid(), firstName, middleName, lastName, phoneNumber, email);
-                        }
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null && task.getResult().getUser() != null) {
+                String uid = task.getResult().getUser().getUid();
+                generateUserId(latestUserId -> {
+                    if (latestUserId == null) {
+                        Toast.makeText(MainActivity4.this, "Error generating user ID", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                            Toast.makeText(MainActivity4.this, "User with this email already exists", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String errorMessage = task.getException() != null ? task.getException().getMessage() : "Registration failed.";
-                            Toast.makeText(MainActivity4.this, "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show();
-                        }
+                        String concatenatedId = latestUserId + latestUserId; // Concatenate latestUserId with itself
+                        saveUserToDatabase(uid, concatenatedId, latestUserId, firstName, middleName, lastName, phoneNumber, email);
                     }
                 });
+            } else {
+                Toast.makeText(MainActivity4.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void generateAndUploadQRCode(String uid, String firstName, String middleName, String lastName, String phoneNumber, String email) {
-        try {
-            // QR Code data
-            String qrData = "UID: " + uid + "\nName: " + firstName + " " + middleName + " " + lastName + "\nPhone: " + phoneNumber + "\nEmail: " + email;
+    private void generateUserId(UserIdCallback callback) {
+        DatabaseReference latestIdRef = FirebaseDatabase.getInstance().getReference("latestUserId");
+        latestIdRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                Integer latestId = task.getResult().getValue(Integer.class);
+                if (latestId == null) latestId = 0;
+                int newId = latestId + 1;
 
-            // Generate the QR code
+                // Update latestUserId in the database
+                latestIdRef.setValue(newId).addOnCompleteListener(updateTask -> {
+                    if (updateTask.isSuccessful()) {
+                        callback.onIdGenerated(String.valueOf(newId));
+                    } else {
+                        Log.e("DatabaseError", "Failed to update latestUserId", updateTask.getException());
+                        callback.onIdGenerated(null);
+                    }
+                });
+            } else {
+                Log.e("DatabaseError", "Failed to fetch latestUserId", task.getException());
+                callback.onIdGenerated("1"); // Default to ID 1 if task fails
+            }
+        });
+    }
+
+    private void saveUserToDatabase(String uid, String concatenatedId, String latestUserId, String firstName, String middleName, String lastName, String phoneNumber, String email) {
+        try {
+            String qrData = "ID: " + concatenatedId + "\nName: " + firstName + " " + middleName + " " + lastName + "\nPhone: " + phoneNumber + "\nEmail: " + email;
+
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.encodeBitmap(qrData, com.google.zxing.BarcodeFormat.QR_CODE, 400, 400);
 
-            if (bitmap == null) {
-                Log.e("QRCodeError", "Bitmap is null after QR code generation");
-                Toast.makeText(MainActivity4.this, "Error generating QR code.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Convert bitmap to byte array
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] data = baos.toByteArray();
 
-            // Firebase Storage path for the QR code
-            StorageReference qrCodeRef = firebaseStorage.getReference()
-                    .child("qrcodes/passenger/" + uid + "/acc_qr/qr.png");
+            StorageReference qrCodeRef = firebaseStorage.getReference().child("qrcodes/passenger/" + concatenatedId + "/acc_qr/qr.png");
+            qrCodeRef.putBytes(data).addOnSuccessListener(taskSnapshot -> qrCodeRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                Map<String, Object> userDetails = new HashMap<>();
+                userDetails.put("firstName", firstName);
+                userDetails.put("middleName", middleName);
+                userDetails.put("lastName", lastName);
+                userDetails.put("phoneNumber", phoneNumber);
+                userDetails.put("email", email);
+                userDetails.put("qr", uri.toString());
+                userDetails.put("wallet_balance", 0);
+                userDetails.put("role", "passenger");
+                userDetails.put("transaction", null);
+                userDetails.put("user_id", concatenatedId);
+                userDetails.put("timestamp", System.currentTimeMillis() / 1000L);
 
-            // Upload the QR code to Firebase Storage
-            qrCodeRef.putBytes(data)
-                    .addOnSuccessListener(taskSnapshot -> qrCodeRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                        if (uri != null) {
-                            saveUserToDatabase(uid, firstName, middleName, lastName, phoneNumber, email, uri.toString());
-                        } else {
-                            Log.e("QRCodeError", "QR Code download URL is null");
-                            Toast.makeText(MainActivity4.this, "Failed to get QR code URL.", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(e -> {
-                        Log.e("QRCodeError", "Failed to get download URL", e);
-                        Toast.makeText(MainActivity4.this, "Failed to get QR code URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }))
-                    .addOnFailureListener(e -> {
-                        Log.e("StorageError", "QR Code upload failed", e);
-                        Toast.makeText(MainActivity4.this, "QR Code upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-        } catch (Exception e) {
-            Log.e("QRCodeError", "Error generating QR Code", e);
-            Toast.makeText(MainActivity4.this, "Error generating QR Code", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    private void saveUserToDatabase(String uid, String firstName, String middleName, String lastName, String phoneNumber, String email, String qrCodeUrl) {
-        Map<String, Object> userDetails = new HashMap<>();
-        userDetails.put("firstName", firstName);
-        userDetails.put("middleName", middleName);
-        userDetails.put("lastName", lastName);
-        userDetails.put("phoneNumber", phoneNumber);
-        userDetails.put("email", email);
-        userDetails.put("qr", qrCodeUrl);
-        userDetails.put("wallet_balance", 0);
-        userDetails.put("role", "passenger");
-        userDetails.put("transaction", null);
-
-        databaseReference.child("passenger").child(uid).setValue(userDetails)
-                .addOnSuccessListener(aVoid -> {
-                    Log.d("DatabaseSuccess", "Passenger saved successfully");
+                databaseReference.child("passenger").child(uid).setValue(userDetails).addOnSuccessListener(aVoid -> {
                     Toast.makeText(MainActivity4.this, "Passenger registered successfully", Toast.LENGTH_SHORT).show();
                     navigateToNextActivity();
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("DatabaseError", "Failed to save passenger to Firebase Database", e);
+                }).addOnFailureListener(e -> {
                     Toast.makeText(MainActivity4.this, "Failed to save passenger: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+            }).addOnFailureListener(e -> {
+                Toast.makeText(MainActivity4.this, "Failed to get QR code URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            })).addOnFailureListener(e -> {
+                Toast.makeText(MainActivity4.this, "QR Code upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+        } catch (Exception e) {
+            Toast.makeText(MainActivity4.this, "Error generating QR Code: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void navigateToNextActivity() {
         Intent intent = new Intent(MainActivity4.this, MainActivity5.class);
         startActivity(intent);
         finish();
+    }
+
+    interface UserIdCallback {
+        void onIdGenerated(String latestUserId);
     }
 }
