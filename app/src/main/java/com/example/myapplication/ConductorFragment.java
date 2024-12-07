@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class ConductorFragment extends Fragment {
 
     // Firebase authentication and database references
     private FirebaseAuth mAuth;
+    private DatabaseReference usersRef;
     private TextView textView8;
 
     public ConductorFragment() {
@@ -62,6 +64,8 @@ public class ConductorFragment extends Fragment {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        // Initialize the database reference to the users/driver node
+        usersRef = FirebaseDatabase.getInstance().getReference("users/driver");
     }
 
     @Override
@@ -73,8 +77,8 @@ public class ConductorFragment extends Fragment {
         // Initialize the TextView
         textView8 = view.findViewById(R.id.textView8);
 
-        // Fetch the user's first name from Firebase
-        fetchUserFirstName();
+        // Fetch the driver's first name from Firebase
+        fetchDriverFirstName();
 
         // Find the button2 by its ID
         Button button2 = view.findViewById(R.id.button2);
@@ -99,31 +103,39 @@ public class ConductorFragment extends Fragment {
         return view;
     }
 
-    private void fetchUserFirstName() {
+    @SuppressLint("SetTextI18n")
+    private void fetchDriverFirstName() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            // Get reference to the "users" node in Firebase Database
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
-            // Access the current user's data using their UID
-            usersRef.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            String uid = currentUser.getUid();
+            usersRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        // Retrieve the first name and set it in the TextView
                         String firstName = dataSnapshot.child("firstName").getValue(String.class);
-                        textView8.setText(firstName);
+                        if (firstName != null) {
+                            textView8.setText(firstName);
+                        } else {
+                            Log.e("UserData", "First name not found.");
+                            textView8.setText("Name not available");
+                        }
                     } else {
-                        Log.e("UserData", "User data not found.");
+                        Log.e("UserData", "User data not found at users/driver/" + uid);
+                        textView8.setText("Data not found");
                     }
                 }
 
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
+                    textView8.setText("Error fetching name");
                 }
             });
         } else {
             Log.e("UserAuth", "No authenticated user found.");
+            textView8.setText("No user logged in");
         }
     }
 }
