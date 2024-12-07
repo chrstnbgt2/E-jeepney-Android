@@ -43,16 +43,15 @@
         android:textSize="18sp"
         android:layout_marginTop="140dp"
         android:layout_marginStart="70dp"/>
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="380dp"
-        android:layout_height="511dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_cars"
-        tools:ignore="ContentDescription" />
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="489dp"
+        android:layout_marginTop="10dp"/>
 
     <Button
+        android:id="@+id/Track_jeepbtn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"

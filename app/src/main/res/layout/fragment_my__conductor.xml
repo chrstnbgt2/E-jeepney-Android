@@ -69,47 +69,14 @@
         tools:ignore="ContentDescription" />
 
     <!-- Conductor Information -->
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/conductorRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="175dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:clickable="true"
-        android:background="#A5BE7D"
-        android:paddingVertical="8dp">
-
-        <!-- Status Dot -->
-        <View
-            android:id="@+id/statusDot"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/circle_dot_green"
-            android:layout_marginEnd="8dp"/>
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="60dp"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText,RtlHardcoded" />
-
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="35dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/ic_3dots"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
+        android:padding="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
     <!-- Conductor Information -->
     <LinearLayout
         android:id="@+id/linear2"
