@@ -92,8 +92,8 @@ public class MainActivity4 extends AppCompatActivity {
                     if (latestUserId == null) {
                         Toast.makeText(MainActivity4.this, "Error generating user ID", Toast.LENGTH_SHORT).show();
                     } else {
-                        String concatenatedId = latestUserId + latestUserId; // Concatenate latestUserId with itself
-                        saveUserToDatabase(uid, concatenatedId, latestUserId, firstName, middleName, lastName, phoneNumber, email);
+                        String updatedUserId = latestUserId;
+                        saveUserToDatabase(uid, updatedUserId, firstName, middleName, lastName, phoneNumber, email);
                     }
                 });
             } else {
@@ -108,27 +108,27 @@ public class MainActivity4 extends AppCompatActivity {
             if (task.isSuccessful() && task.getResult() != null) {
                 Integer latestId = task.getResult().getValue(Integer.class);
                 if (latestId == null) latestId = 0;
-                int newId = latestId + 1;
-
-                // Update latestUserId in the database
-                latestIdRef.setValue(newId).addOnCompleteListener(updateTask -> {
-                    if (updateTask.isSuccessful()) {
-                        callback.onIdGenerated(String.valueOf(newId));
-                    } else {
-                        Log.e("DatabaseError", "Failed to update latestUserId", updateTask.getException());
-                        callback.onIdGenerated(null);
-                    }
-                });
+                callback.onIdGenerated(String.valueOf(latestId));
             } else {
                 Log.e("DatabaseError", "Failed to fetch latestUserId", task.getException());
-                callback.onIdGenerated("1"); // Default to ID 1 if task fails
+                callback.onIdGenerated("1");
             }
         });
     }
 
-    private void saveUserToDatabase(String uid, String concatenatedId, String latestUserId, String firstName, String middleName, String lastName, String phoneNumber, String email) {
+    private void updateLatestUserId(String currentUserId) {
+        DatabaseReference latestIdRef = FirebaseDatabase.getInstance().getReference("latestUserId");
+        int latestId = Integer.parseInt(currentUserId) + 1;
+        latestIdRef.setValue(latestId).addOnCompleteListener(updateTask -> {
+            if (!updateTask.isSuccessful()) {
+                Log.e("DatabaseError", "Failed to update latestUserId", updateTask.getException());
+            }
+        });
+    }
+
+    private void saveUserToDatabase(String uid, String updatedUserId, String firstName, String middleName, String lastName, String phoneNumber, String email) {
         try {
-            String qrData = "ID: " + concatenatedId + "\nName: " + firstName + " " + middleName + " " + lastName + "\nPhone: " + phoneNumber + "\nEmail: " + email;
+            String qrData = "ID: " + updatedUserId + "\nName: " + firstName + " " + middleName + " " + lastName + "\nPhone: " + phoneNumber + "\nEmail: " + email;
 
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.encodeBitmap(qrData, com.google.zxing.BarcodeFormat.QR_CODE, 400, 400);
@@ -137,7 +137,7 @@ public class MainActivity4 extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] data = baos.toByteArray();
 
-            StorageReference qrCodeRef = firebaseStorage.getReference().child("qrcodes/passenger/" + concatenatedId + "/acc_qr/qr.png");
+            StorageReference qrCodeRef = firebaseStorage.getReference().child("qrcodes/passenger/" + updatedUserId + "/acc_qr/qr.png");
             qrCodeRef.putBytes(data).addOnSuccessListener(taskSnapshot -> qrCodeRef.getDownloadUrl().addOnSuccessListener(uri -> {
                 Map<String, Object> userDetails = new HashMap<>();
                 userDetails.put("firstName", firstName);
@@ -149,7 +149,7 @@ public class MainActivity4 extends AppCompatActivity {
                 userDetails.put("wallet_balance", 0);
                 userDetails.put("role", "passenger");
                 userDetails.put("transaction", null);
-                userDetails.put("user_id", concatenatedId);
+                userDetails.put("user_id", updatedUserId);
                 userDetails.put("timestamp", System.currentTimeMillis() / 1000L);
 
                 databaseReference.child("passenger").child(uid).setValue(userDetails).addOnSuccessListener(aVoid -> {
