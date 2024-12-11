@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -79,18 +80,23 @@ public class Conductor_ProfileFragment extends Fragment {
                 // Show the ProgressBar
                 progressBar.setVisibility(View.VISIBLE);
 
-                // Use Handler to introduce a delay of 4 seconds
+                // Use Handler to introduce a delay of 3 seconds
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // Hide the ProgressBar after 4 seconds
+                        // Hide the ProgressBar
                         progressBar.setVisibility(View.GONE);
+
+                        // Open MainActivity
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+
+                        // Optional: Close the current fragment/activity if needed
+                        requireActivity().finish();
                     }
-                }, 3000); // 4 seconds delay
+                }, 3000); // 3 seconds delay
             }
         });
-
-        // Other existing code...
 
         // Get reference to LinearLayout (linear1)
         LinearLayout myConductorLayout1 = view.findViewById(R.id.linear1);

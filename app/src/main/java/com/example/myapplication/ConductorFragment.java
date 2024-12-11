@@ -1,18 +1,24 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,121 +27,147 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ConductorFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ConductorFragment extends Fragment {
 
-    // Define ARG_PARAM1 and ARG_PARAM2 as constants
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final int LOCATION_REQUEST_CODE = 100;
+    private static final String TAG = "ConductorFragment";
 
-    // Parameters
-    private String mParam1;
-    private String mParam2;
-
-    // Firebase authentication and database references
     private FirebaseAuth mAuth;
-    private DatabaseReference usersRef;
-    private TextView textView8;
+    private DatabaseReference databaseRef;
+    private FusedLocationProviderClient fusedLocationClient;
+    private Handler handler;
+    private Runnable locationUpdateTask;
+    private TextView textView8; // Define TextView for firstName
 
     public ConductorFragment() {
         // Required empty public constructor
     }
 
-    public static ConductorFragment newInstance(String param1, String param2) {
-        ConductorFragment fragment = new ConductorFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
-        // Initialize Firebase Auth
+        // Initialize Firebase Auth and Database references
         mAuth = FirebaseAuth.getInstance();
-        // Initialize the database reference to the users/driver node
-        usersRef = FirebaseDatabase.getInstance().getReference("users/driver");
+        databaseRef = FirebaseDatabase.getInstance().getReference();
+
+        // Initialize location client
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+
+        // Initialize handler for periodic location updates
+        handler = new Handler();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_conductor, container, false);
 
-        // Initialize the TextView
+        // Initialize textView8
         textView8 = view.findViewById(R.id.textView8);
 
-        // Fetch the driver's first name from Firebase
-        fetchDriverFirstName();
+        // Request location permissions
+        requestLocationPermissions();
 
-        // Find the button2 by its ID
-        Button button2 = view.findViewById(R.id.button2);
-
-        // Set an OnClickListener for button2
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create a new instance of CashInFragment
-                CashInFragment cashInFragment = new CashInFragment();
-
-                // Begin a fragment transaction
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-
-                // Replace the current fragment with CashInFragment
-                transaction.replace(R.id.frame_conductor, cashInFragment);
-                transaction.addToBackStack(null); // Optional: Add to back stack
-                transaction.commit(); // Commit the transaction
-            }
-        });
+        // Fetch and display the user's first name
+        fetchAndDisplayFirstName();
 
         return view;
     }
 
-    @SuppressLint("SetTextI18n")
-    private void fetchDriverFirstName() {
+    private void startLocationUpdates() {
+        locationUpdateTask = new Runnable() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void run() {
+                fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            updateJeepneyLocation(location); // Update Firebase with location
+                        } else {
+                            Log.e(TAG, "Location is null");
+                        }
+                    }
+                });
+
+                // Schedule the next update after 1 second
+                handler.postDelayed(locationUpdateTask, 1000);
+            }
+        };
+
+        // Trigger the location update task
+        handler.post(locationUpdateTask);
+    }
+
+    private void updateJeepneyLocation(Location location) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String conductorUid = currentUser.getUid();
+
+            // Write latitude and longitude to `jeep_loc/{conductorUid}`
+            DatabaseReference locationRef = databaseRef.child("jeep_loc").child(conductorUid);
+            locationRef.child("latitude").setValue(location.getLatitude());
+            locationRef.child("longitude").setValue(location.getLongitude());
+
+            Log.d(TAG, "Location updated for UID: " + conductorUid);
+        } else {
+            Log.e(TAG, "User is not authenticated.");
+        }
+    }
+
+    private void requestLocationPermissions() {
+        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_REQUEST_CODE);
+        } else {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationUpdates();
+            } else {
+                Log.e(TAG, "Location permissions denied.");
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Stop location updates when fragment is destroyed
+        if (handler != null && locationUpdateTask != null) {
+            handler.removeCallbacks(locationUpdateTask);
+        }
+    }
+
+    private void fetchAndDisplayFirstName() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String uid = currentUser.getUid();
-            usersRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                @SuppressLint("SetTextI18n")
+            DatabaseReference firstNameRef = databaseRef.child("users").child("driver").child(uid).child("firstName");
+
+            firstNameRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String firstName = dataSnapshot.child("firstName").getValue(String.class);
-                        if (firstName != null) {
-                            textView8.setText(firstName);
-                        } else {
-                            Log.e("UserData", "First name not found.");
-                            textView8.setText("Name not available");
-                        }
+                    String firstName = dataSnapshot.getValue(String.class);
+                    if (firstName != null) {
+                        textView8.setText(firstName);
                     } else {
-                        Log.e("UserData", "User data not found at users/driver/" + uid);
-                        textView8.setText("Data not found");
+                        Log.e(TAG, "First name is null");
                     }
                 }
 
-                @SuppressLint("SetTextI18n")
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.e("DatabaseError", "Error retrieving user data: " + databaseError.getMessage());
-                    textView8.setText("Error fetching name");
+                    Log.e(TAG, "Failed to read first name", databaseError.toException());
                 }
             });
         } else {
-            Log.e("UserAuth", "No authenticated user found.");
-            textView8.setText("No user logged in");
+            Log.e(TAG, "User is not authenticated.");
         }
     }
 }
