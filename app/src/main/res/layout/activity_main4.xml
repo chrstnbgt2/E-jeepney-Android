@@ -153,8 +153,9 @@
         android:textColor="@android:color/white"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/person3"
-        tools:layout_editor_absoluteX="137dp" />
+        app:layout_constraintEnd_toEndOf="@+id/person3"
+        app:layout_constraintStart_toStartOf="@+id/person3"
+        app:layout_constraintTop_toBottomOf="@+id/person3" />
 
     <TextView
         android:id="@+id/textView6"
