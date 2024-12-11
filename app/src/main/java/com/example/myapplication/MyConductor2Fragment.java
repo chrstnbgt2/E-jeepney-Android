@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class MyConductor2Fragment extends Fragment {
 
     private EditText firstNameEditText, middleNameEditText, lastNameEditText, emailEditText, phoneNumberEditText, passwordEditText;
     private Button createAccountButton;
+    private ProgressDialog progressDialog;
 
     public MyConductor2Fragment() {
         // Required empty public constructor
@@ -62,6 +64,10 @@ public class MyConductor2Fragment extends Fragment {
         passwordEditText = view.findViewById(R.id.password);
         createAccountButton = view.findViewById(R.id.createAccountButton);
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Creating account...");
+        progressDialog.setCancelable(false);
+
         ImageView backButton = view.findViewById(R.id.imageView24);
 
         // Set up the back button to navigate to the previous fragment
@@ -87,6 +93,7 @@ public class MyConductor2Fragment extends Fragment {
                 return;
             }
 
+            progressDialog.show();
             createFirebaseAccount(firstName, middleName, lastName, email, phoneNumber, password);
         });
 
@@ -103,6 +110,7 @@ public class MyConductor2Fragment extends Fragment {
                             storeUserData(user.getUid(), firstName, middleName, lastName, email, phoneNumber);
                         }
                     } else {
+                        progressDialog.dismiss();
                         Toast.makeText(getContext(), "Account creation failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -110,7 +118,7 @@ public class MyConductor2Fragment extends Fragment {
 
     private void storeUserData(String userId, String firstName, String middleName, String lastName, String email, String phoneNumber) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("users").child(userId);
+        DatabaseReference userRef = database.getReference("users/conductor").child(userId);
 
         HashMap<String, String> userData = new HashMap<>();
         userData.put("firstName", firstName);
@@ -121,6 +129,7 @@ public class MyConductor2Fragment extends Fragment {
 
         userRef.setValue(userData)
                 .addOnCompleteListener(task -> {
+                    progressDialog.dismiss();
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
