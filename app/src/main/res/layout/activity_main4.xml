@@ -125,26 +125,26 @@
         app:layout_constraintTop_toBottomOf="@+id/Passwordtxt"
         tools:ignore="Autofill,LabelFor,MissingConstraints,RtlSymmetry" />
 
-    <Spinner
-        android:id="@+id/roleSpinner"
-        style="@style/CustomSpinnerStyle"
-        android:layout_width="303dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/email_pass"
-        android:paddingStart="20dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="@+id/person3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView23"
-        app:layout_constraintTop_toBottomOf="@+id/textView23"
-        tools:ignore="Autofill,LabelFor,RtlSymmetry" />
+    <!--    <Spinner-->
+    <!--        android:id="@+id/roleSpinner"-->
+    <!--        style="@style/CustomSpinnerStyle"-->
+    <!--        android:layout_width="303dp"-->
+    <!--        android:layout_height="39dp"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:background="@drawable/email_pass"-->
+    <!--        android:paddingStart="20dp"-->
+    <!--        android:spinnerMode="dropdown"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/person3"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/textView23"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView23"-->
+    <!--        tools:ignore="Autofill,LabelFor,RtlSymmetry" />-->
 
     <Button
         android:id="@+id/button5"
         android:layout_width="139dp"
         android:layout_height="33dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/rubik"
         android:paddingTop="6dp"
@@ -153,9 +153,9 @@
         android:textColor="@android:color/white"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roleSpinner" />
+        app:layout_constraintEnd_toEndOf="@+id/person3"
+        app:layout_constraintStart_toStartOf="@+id/person3"
+        app:layout_constraintTop_toBottomOf="@+id/person3" />
 
     <TextView
         android:id="@+id/textView6"
@@ -187,19 +187,19 @@
         app:layout_constraintTop_toTopOf="@+id/textView6"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/rubik"
-        android:text="@string/role"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/person3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/person3"
-        app:layout_constraintTop_toBottomOf="@+id/person3" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView23"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:fontFamily="@font/rubik"-->
+    <!--        android:text="@string/role"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="12sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/person3"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/person3"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/person3" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
