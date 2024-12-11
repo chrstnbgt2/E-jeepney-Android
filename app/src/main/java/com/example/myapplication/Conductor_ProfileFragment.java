@@ -86,7 +86,7 @@ public class Conductor_ProfileFragment extends Fragment {
                         // Hide the ProgressBar after 4 seconds
                         progressBar.setVisibility(View.GONE);
                     }
-                }, 4000); // 4 seconds delay
+                }, 3000); // 4 seconds delay
             }
         });
 
