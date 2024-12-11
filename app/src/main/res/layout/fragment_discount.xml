@@ -166,7 +166,7 @@
                         android:background="@drawable/round_edit_txt"
                         android:paddingStart="20dp"
                         android:textSize="15sp"
-
+                        android:textColor="@color/black"
                         android:textColorHint="#6F6E6E"
                         android:hint="@string/address"
                         tools:ignore="Autofill,RtlSymmetry,TextFields" />

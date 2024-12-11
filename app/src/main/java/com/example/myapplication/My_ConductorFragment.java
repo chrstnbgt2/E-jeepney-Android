@@ -302,7 +302,7 @@ public class My_ConductorFragment extends Fragment {
         btnInactive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                statusDot2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_dot_orange));
+                statusDot2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.circle_dot_green));
                 Toast.makeText(getActivity(), "Status set to Inactive", Toast.LENGTH_SHORT).show();
                 statusDialog.dismiss();
             }

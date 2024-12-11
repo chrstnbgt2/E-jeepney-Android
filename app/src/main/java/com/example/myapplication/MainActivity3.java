@@ -61,8 +61,9 @@ public class MainActivity3 extends AppCompatActivity {
         String middleName = middleNameInput.getText().toString().trim();
         String lastName = lastNameInput.getText().toString().trim();
 
-        if (firstName.isEmpty() || lastName.isEmpty()) {
-            Toast.makeText(this, "Please enter your first and last name.", Toast.LENGTH_SHORT).show();
+        // Check if any field is empty
+        if (firstName.isEmpty() || middleName.isEmpty() || lastName.isEmpty()) {
+            Toast.makeText(this, "Please fill out all fields before proceeding.", Toast.LENGTH_SHORT).show();
             return;
         }
 
